@@ -4,9 +4,9 @@ import LinkButton from './LinkButton'
 import Step from './Step'
 
 const URGENCY_LEVELS = [
-  { label: '6 hours', value: 6 },
-  { label: '24 hours', value: 24 },
-  { label: '3 days', value: 72 },
+  { label: 'Within 6 hours', value: 6 },
+  { label: 'Within 24 hours', value: 24 },
+  { label: 'Within 3 days', value: 72 },
 ]
 
 export default function Urgency() {
