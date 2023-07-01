@@ -5,18 +5,11 @@ import {
   ListItemButton,
   ListItemText,
 } from '@mui/material'
-
-import Step from './Step'
 import { useState } from 'react'
-import { Send } from '@mui/icons-material'
-import LinkButton from './LinkButton'
 
-type Resource = {
-  id: string
-  name: string
-  description: string
-  url: string
-}
+import Resource from '@/types/Resource'
+import Step from '../Step'
+import SendButton from './SendButton'
 
 const MOCK_RESOURCES: Resource[] = [
   {
@@ -33,14 +26,6 @@ const MOCK_RESOURCES: Resource[] = [
   },
 ]
 
-const getEmailBody = (resourceIds: string[], resources: Resource[]): string =>
-  resourceIds
-    .map(resourceId => {
-      const resource = resources.find(({ id }) => resourceId === id) as Resource
-      return `- ${resource.name} (${resource.url})\n${resource.description}`
-    })
-    .join('\n\n')
-
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
 
@@ -50,8 +35,6 @@ export default function Resources() {
         ? current.filter(value => value !== valueToToggle)
         : [...current, valueToToggle]
     )
-
-  const emailBody = getEmailBody(selected, MOCK_RESOURCES)
 
   return (
     <Step title="Here are some resources for your neighbor." step="Resources">
@@ -82,15 +65,7 @@ export default function Resources() {
         ))}
       </List>
 
-      <LinkButton
-        disabled={!selected.length}
-        href="mailto:"
-        query={{ subject: 'Some helpful resources for you', body: emailBody }}
-        startIcon={<Send />}
-        variant="contained"
-      >
-        Send
-      </LinkButton>
+      <SendButton selectedResourceIds={selected} resources={MOCK_RESOURCES} />
     </Step>
   )
 }
