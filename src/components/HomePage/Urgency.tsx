@@ -1,19 +1,7 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Radio,
-} from '@mui/material'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 
 import LinkButton from './LinkButton'
+import Step from './Step'
 
 const URGENCY_LEVELS = [
   { label: '6 hours', value: 6 },
@@ -22,60 +10,25 @@ const URGENCY_LEVELS = [
 ]
 
 export default function Urgency() {
-  const [selectedUrgency, setSelected] = useState<number | undefined>()
-
   const searchParams = useSearchParams()
   const county = searchParams.get('county') as string
   const need = searchParams.get('need') as string
 
   return (
-    <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <CardHeader title="How urgently?" />
-      <CardContent
-        sx={{
-          flexGrow: 1,
-        }}
-      >
-        <List>
-          {URGENCY_LEVELS.map(urgency => (
-            <ListItem key={urgency.value}>
-              <ListItemButton
-                role={undefined}
-                onClick={() => setSelected(urgency.value)}
-              >
-                <ListItemIcon>
-                  <Radio
-                    edge="start"
-                    checked={urgency.value === selectedUrgency}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{
-                      'aria-labelledby': `Urgency__${urgency.value}`,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  id={`Urgency__${urgency.value}`}
-                  primary={urgency.label}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
+    <Step title="How urgently does this person need help?">
+      {URGENCY_LEVELS.map(urgency => (
         <LinkButton
-          disabled={!selectedUrgency}
+          key={urgency.value}
           query={{
             step: 'neighbor',
             county,
             need,
-            urgency: selectedUrgency?.toString() || '',
+            urgency: urgency.value.toString(),
           }}
         >
-          Continue
+          {urgency.label}
         </LinkButton>
-      </CardActions>
-    </Card>
+      ))}
+    </Step>
   )
 }

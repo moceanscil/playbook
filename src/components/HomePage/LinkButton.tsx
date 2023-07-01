@@ -16,7 +16,8 @@ export default function LinkButton({
 
   return (
     <Button
-      variant="contained"
+      variant="outlined"
+      size="large"
       sx={sx}
       disabled={disabled}
       LinkComponent={Link}
