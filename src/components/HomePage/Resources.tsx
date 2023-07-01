@@ -89,6 +89,7 @@ export default function Resources() {
         href="mailto:"
         query={{ subject: 'Some helpful resources for you', body: emailBody }}
         startIcon={<Send />}
+        variant="contained"
       >
         Send
       </LinkButton>

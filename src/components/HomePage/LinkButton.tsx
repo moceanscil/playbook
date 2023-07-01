@@ -12,6 +12,7 @@ export default function LinkButton({
   disabled,
   sx,
   startIcon,
+  variant,
 }: {
   href?: string
   query?: Record<string, string>
@@ -19,12 +20,14 @@ export default function LinkButton({
   disabled?: boolean
   sx?: SxProps
   startIcon?: ReactNode
+  variant?: 'contained'
 }) {
   if (query)
     href += '?' + toStringWithMailFriendlySpaces(new URLSearchParams(query))
 
   return (
     <Button
+      variant={variant}
       startIcon={startIcon}
       size="large"
       sx={sx}
