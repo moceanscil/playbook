@@ -1,8 +1,4 @@
 import {
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
   Checkbox,
   List,
   ListItem,
@@ -14,6 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 import LinkButton from './LinkButton'
+import Step from './Step'
 
 const AREAS_OF_NEED = [
   { label: 'Food', value: 'food' },
@@ -37,52 +34,44 @@ export default function AreaOfNeed() {
     )
 
   return (
-    <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <CardHeader title="What area of need?" />
-      <CardContent
-        sx={{
-          flexGrow: 1,
+    <Step title="What area(s) do they need help with?">
+      <List>
+        {AREAS_OF_NEED.map(area => (
+          <ListItem key={area.value}>
+            <ListItemButton
+              role={undefined}
+              onClick={() => handleToggle(area.value)}
+            >
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={selected.indexOf(area.value) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                  inputProps={{
+                    'aria-labelledby': `AreaOfNeed__${area.value}`,
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                id={`AreaOfNeed__${area.value}`}
+                primary={area.label}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+
+      <LinkButton
+        disabled={selected.length === 0}
+        query={{
+          step: 'neighbor',
+          county,
+          need: selected.join(','),
         }}
       >
-        <List>
-          {AREAS_OF_NEED.map(area => (
-            <ListItem key={area.value}>
-              <ListItemButton
-                role={undefined}
-                onClick={() => handleToggle(area.value)}
-              >
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={selected.indexOf(area.value) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{
-                      'aria-labelledby': `AreaOfNeed__${area.value}`,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  id={`AreaOfNeed__${area.value}`}
-                  primary={area.label}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </CardContent>
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <LinkButton
-          disabled={selected.length === 0}
-          query={{
-            step: 'neighbor',
-            county,
-            need: selected.join(','),
-          }}
-        >
-          Continue
-        </LinkButton>
-      </CardActions>
-    </Card>
+        Continue
+      </LinkButton>
+    </Step>
   )
 }
