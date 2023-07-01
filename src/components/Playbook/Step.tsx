@@ -2,7 +2,7 @@ import { Box, SxProps, Typography } from '@mui/material'
 import { ReactNode, useContext } from 'react'
 import { Transition } from 'react-transition-group'
 
-import StepContext from './StepContext'
+import StepContext from '../StepContext'
 
 const styles: Record<string, SxProps> = {
   root: {

@@ -18,6 +18,8 @@ import '@fontsource/montserrat/500.css'
 import '@fontsource/montserrat/700.css'
 
 import logo from './logo.png'
+import PlaybookProgress from '@/components/PlaybookProgress'
+import { StepContextProvider } from '@/components/StepContext'
 
 const LOGO_COLOR_PRIMARY = 'rgb(77, 169, 197)'
 const LOGO_COLOR_SECONDARY = 'rgb(249, 200, 59)'
@@ -72,24 +74,28 @@ export default function RootLayout({
       </head>
       <body style={bodyStyle}>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
+          <StepContextProvider>
+            <CssBaseline />
 
-          <AppBar position="sticky" sx={styles.appBar}>
-            <Link href="/">
-              <Image
-                src={logo}
-                alt="The MOCEANS CIL logo"
-                style={logoStyle}
-                priority
-              />
-            </Link>
-          </AppBar>
+            <AppBar position="sticky" sx={styles.appBar}>
+              <Link href="/">
+                <Image
+                  src={logo}
+                  alt="The MOCEANS CIL logo"
+                  style={logoStyle}
+                  priority
+                />
+              </Link>
 
-          <Box sx={styles.scrollContainer}>
-            <Container maxWidth="md" component="main">
-              {children}
-            </Container>
-          </Box>
+              <PlaybookProgress />
+            </AppBar>
+
+            <Box sx={styles.scrollContainer}>
+              <Container maxWidth="md" component="main">
+                {children}
+              </Container>
+            </Box>
+          </StepContextProvider>
         </ThemeProvider>
       </body>
     </html>
