@@ -1,10 +1,13 @@
 'use client'
 
 import {
+  AppBar,
   Box,
   Container,
   createTheme,
   CssBaseline,
+  lighten,
+  SxProps,
   ThemeProvider,
 } from '@mui/material'
 import Image from 'next/image'
@@ -30,6 +33,32 @@ const theme = createTheme({
   },
 })
 
+const bodyStyle = {
+  height: '100%',
+  backgroundColor: lighten(LOGO_COLOR_PRIMARY, 0.75),
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column' as const,
+}
+
+const logoStyle = {
+  height: 'auto',
+  width: '100%',
+  maxWidth: 230,
+}
+
+const styles: Record<string, SxProps> = {
+  appBar: {
+    backgroundColor: 'white',
+  },
+  scrollContainer: {
+    overflow: 'auto',
+    height: '100%',
+    pt: 4,
+    pb: 2,
+  },
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -40,32 +69,26 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
-      <body style={{ height: '100%' }}>
+      <body style={bodyStyle}>
         <ThemeProvider theme={theme}>
-          <Container
-            maxWidth="md"
-            component="main"
-            sx={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 4,
-            }}
-          >
-            <Box sx={{ textAlign: 'center', flexGrow: 0, pt: 4 }}>
-              <Link href="/">
-                <Image
-                  src={logo}
-                  alt="The MOCEANS CIL logo"
-                  style={{ height: 'auto', width: '100%', maxWidth: 230 }}
-                  priority
-                />
-              </Link>
-            </Box>
-
-            {children}
-          </Container>
           <CssBaseline />
+
+          <AppBar position="sticky" sx={styles.appBar}>
+            <Link href="/">
+              <Image
+                src={logo}
+                alt="The MOCEANS CIL logo"
+                style={logoStyle}
+                priority
+              />
+            </Link>
+          </AppBar>
+
+          <Box sx={styles.scrollContainer}>
+            <Container maxWidth="md" component="main">
+              {children}
+            </Container>
+          </Box>
         </ThemeProvider>
       </body>
     </html>
