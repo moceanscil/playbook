@@ -51,6 +51,7 @@ export default function RootLayout({
                 src={logo}
                 alt="The MOCEANS CIL logo"
                 style={{ height: 'auto', width: '100%', maxWidth: 460 }}
+                priority
               />
             </Box>
 
