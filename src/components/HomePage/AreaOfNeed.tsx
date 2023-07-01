@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -11,9 +10,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+
+import LinkButton from './LinkButton'
 
 const AREAS_OF_NEED = [
   { label: 'Food', value: 'food' },
@@ -72,10 +72,8 @@ export default function AreaOfNeed() {
         </List>
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <Button
+        <LinkButton
           disabled={selected.length === 0}
-          variant="contained"
-          LinkComponent={Link}
           href={{
             query: {
               step: 'neighbor',
@@ -85,7 +83,7 @@ export default function AreaOfNeed() {
           }}
         >
           Continue
-        </Button>
+        </LinkButton>
       </CardActions>
     </Card>
   )

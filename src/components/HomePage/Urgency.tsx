@@ -1,10 +1,8 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  Checkbox,
   List,
   ListItem,
   ListItemButton,
@@ -12,9 +10,10 @@ import {
   ListItemText,
   Radio,
 } from '@mui/material'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+
+import LinkButton from './LinkButton'
 
 const URGENCY_LEVELS = [
   { label: '6 hours', value: 6 },
@@ -65,10 +64,8 @@ export default function Urgency() {
         </List>
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <Button
+        <LinkButton
           disabled={!selectedUrgency}
-          variant="contained"
-          LinkComponent={Link}
           href={{
             query: {
               step: 'neighbor',
@@ -79,7 +76,7 @@ export default function Urgency() {
           }}
         >
           Continue
-        </Button>
+        </LinkButton>
       </CardActions>
     </Card>
   )
