@@ -16,7 +16,6 @@ export default function LinkButton({
 
   return (
     <Button
-      variant="outlined"
       size="large"
       sx={sx}
       disabled={disabled}
