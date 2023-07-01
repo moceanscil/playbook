@@ -14,7 +14,7 @@ const rootStyle = {
   gridTemplateAreas: '"main"',
 }
 
-export default function HomePage() {
+export default function Playbook() {
   const searchParams = useSearchParams()
   const action = searchParams.get('action')
   const county = searchParams.get('county')

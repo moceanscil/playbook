@@ -1,7 +1,7 @@
-import HomePage from '@/components/HomePage'
+import Playbook from '@/components/Playbook'
 
 export default function Home() {
-  return <HomePage />
+  return <Playbook />
 }
 
 export const metadata = {
