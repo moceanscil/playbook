@@ -23,4 +23,4 @@ This app is deployed with Vercel.
 The Playbook depends on the following environment variables:
 - `AIRTABLE_API_KEY`: The API key to make requests to Airtable.
 - `AIRTABLE_BASE_ID`: The ID of the Airtable base to get data from.
-- `AIRTABLE_TABLE_ID`: The ID of the Airtable table to get data from.
+- `AIRTABLE_TABLE_ID`: The ID of the Airtable table to get data from. This can also be the table name; however, that's not recommended, since an Airtable user can easily change a table's name.
