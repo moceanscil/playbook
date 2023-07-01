@@ -1,7 +1,7 @@
 import LinkButton from './LinkButton'
 import Step from './Step'
 
-export default function Neighbor() {
+export default function County() {
   return (
     <Step title="Which county?">
       <LinkButton query={{ action: 'neighbor', county: 'monmouth' }}>

@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 
 import AreaOfNeed from './AreaOfNeed'
-import Neighbor from './Neighbor'
+import County from './County'
 import Resources from './Resources'
 import Start from './Start'
 import Urgency from './Urgency'
@@ -18,6 +18,6 @@ export default function HomePage() {
   if (action === 'neighbor' && county && need && urgency) return <Resources />
   if (action === 'neighbor' && county && need) return <Urgency />
   if (action === 'neighbor' && county) return <AreaOfNeed />
-  if (action === 'neighbor') return <Neighbor />
+  if (action === 'neighbor') return <County />
   if (!action) return <Start />
 }
