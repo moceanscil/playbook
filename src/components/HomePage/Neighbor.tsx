@@ -30,13 +30,13 @@ export default function Neighbor() {
       >
         <LinkButton
           sx={styles.card}
-          href={{ query: { step: 'neighbor', county: 'monmouth' } }}
+          query={{ step: 'neighbor', county: 'monmouth' }}
         >
           Monmouth
         </LinkButton>
         <LinkButton
           sx={styles.card}
-          href={{ query: { step: 'neighbor', county: 'ocean' } }}
+          query={{ step: 'neighbor', county: 'ocean' }}
         >
           Ocean
         </LinkButton>

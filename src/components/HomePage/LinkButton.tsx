@@ -1,27 +1,25 @@
 import { Button, SxProps } from '@mui/material'
 import Link from 'next/link'
-import { UrlObject } from 'url'
 
 export default function LinkButton({
-  href,
+  query,
   children,
   disabled,
   sx,
 }: {
-  href: UrlObject
+  query: Record<string, string>
   children: string
   disabled?: boolean
   sx?: SxProps
 }) {
+  const href = '?' + new URLSearchParams(query).toString()
+
   return (
     <Button
       variant="contained"
       sx={sx}
       disabled={disabled}
       LinkComponent={Link}
-      // There are incorrect typings when using a next/link with an MUI
-      // button, so we unfortunately have to tell TypeScript to ignore this.
-      // @ts-ignore
       href={href}
     >
       {children}

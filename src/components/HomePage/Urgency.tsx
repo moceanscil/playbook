@@ -26,7 +26,7 @@ export default function Urgency() {
 
   const searchParams = useSearchParams()
   const county = searchParams.get('county') as string
-  const need = searchParams.get('need')
+  const need = searchParams.get('need') as string
 
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -66,13 +66,11 @@ export default function Urgency() {
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <LinkButton
           disabled={!selectedUrgency}
-          href={{
-            query: {
-              step: 'neighbor',
-              county,
-              need,
-              urgency: selectedUrgency,
-            },
+          query={{
+            step: 'neighbor',
+            county,
+            need,
+            urgency: selectedUrgency?.toString() || '',
           }}
         >
           Continue

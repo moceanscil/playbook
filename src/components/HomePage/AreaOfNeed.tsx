@@ -74,12 +74,10 @@ export default function AreaOfNeed() {
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <LinkButton
           disabled={selected.length === 0}
-          href={{
-            query: {
-              step: 'neighbor',
-              county,
-              need: selected.join(','),
-            },
+          query={{
+            step: 'neighbor',
+            county,
+            need: selected.join(','),
           }}
         >
           Continue
