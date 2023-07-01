@@ -1,3 +1,4 @@
+import { ArrowForward } from '@mui/icons-material'
 import {
   Checkbox,
   List,
@@ -63,12 +64,14 @@ export default function AreaOfNeed() {
       </List>
 
       <LinkButton
+        variant="contained"
         disabled={selected.length === 0}
         query={{
           action: 'neighbor',
           county,
           need: selected.join(','),
         }}
+        startIcon={<ArrowForward />}
       >
         Continue
       </LinkButton>
