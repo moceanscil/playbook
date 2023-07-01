@@ -35,7 +35,7 @@ const theme = createTheme({
 
 const bodyStyle = {
   height: '100%',
-  backgroundColor: lighten(LOGO_COLOR_PRIMARY, 0.75),
+  backgroundColor: lighten(LOGO_COLOR_PRIMARY, 0.9),
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column' as const,
