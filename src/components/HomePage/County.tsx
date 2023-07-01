@@ -3,7 +3,7 @@ import Step from './Step'
 
 export default function County() {
   return (
-    <Step title="Which county?" step="County">
+    <Step title="In which county?" step="County">
       <LinkButton query={{ action: 'neighbor', county: 'monmouth' }}>
         Monmouth
       </LinkButton>
