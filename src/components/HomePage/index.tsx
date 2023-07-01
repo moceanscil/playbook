@@ -1,38 +1,28 @@
 'use client'
 
-import { Box, Card, SxProps } from '@mui/material'
+import { useParams } from 'next/navigation'
+import Start from './Start'
+import Neighbor from './Neighbor'
+import AreaOfNeed from './AreaOfNeed'
 
-const styles: Record<string, SxProps> = {
-  card: {
-    flexGrow: 1,
-    flexShrink: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    maxHeight: 300,
+type Step = 'start' | 'neighbor' | 'neighbor/area-of-need' | 'update'
 
-    backgroundColor: 'primary.light',
-    color: 'primary.contrastText',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  },
+const getStep = (params: { step?: string }): Step => {
+  if (!params.step) return 'start'
+  const segments = params.step.split('/')
+
+  if (segments.length === 2 && segments[0] === 'neighbor') {
+    return 'neighbor/area-of-need'
+  }
+
+  return segments.at(-1)
 }
 
 export default function HomePage() {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: 2,
-        justifyContent: 'center',
-        flexDirection: { xs: 'column', md: 'row' },
-        alignItems: 'stretch',
-        flexGrow: 1,
-        py: 2,
-      }}
-    >
-      <Card sx={styles.card}>I'm with a neighbor</Card>
-      <Card sx={styles.card}>I want to update a resource</Card>
-    </Box>
-  )
+  const params = useParams()
+  const step = getStep(params)
+
+  if (step === 'start') return <Start />
+  if (step === 'neighbor') return <Neighbor />
+  if (step === 'neighbor/area-of-need') return <AreaOfNeed />
 }
