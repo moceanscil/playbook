@@ -50,6 +50,7 @@ const logoStyle = {
 const styles: Record<string, SxProps> = {
   appBar: {
     backgroundColor: 'white',
+    textAlign: 'center',
   },
   scrollContainer: {
     overflow: 'auto',
