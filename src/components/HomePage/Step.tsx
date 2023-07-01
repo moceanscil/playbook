@@ -5,6 +5,7 @@ const styles: Record<string, SxProps> = {
   root: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     gap: 2,
   },
   title: { textAlign: 'center' },
