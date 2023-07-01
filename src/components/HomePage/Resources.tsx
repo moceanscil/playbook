@@ -1,12 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material'
+import { List, ListItem, ListItemButton, ListItemText } from '@mui/material'
+
+import Step from './Step'
 
 const MOCK_RESOURCES = [
   {
@@ -25,37 +19,24 @@ const MOCK_RESOURCES = [
 
 export default function Resources() {
   return (
-    <Card
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-      }}
-    >
-      <CardHeader title="Here are some resources that should help" />
-      <CardContent
-        sx={{
-          flexGrow: 1,
-        }}
-      >
-        <List>
-          {MOCK_RESOURCES.map(resource => (
-            <ListItem key={resource.id}>
-              <ListItemButton
-                LinkComponent="a"
-                href={resource.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ListItemText
-                  primary={resource.name}
-                  secondary={resource.description}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </CardContent>
-    </Card>
+    <Step title="Here are some resources that should help">
+      <List>
+        {MOCK_RESOURCES.map(resource => (
+          <ListItem key={resource.id}>
+            <ListItemButton
+              LinkComponent="a"
+              href={resource.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ListItemText
+                primary={resource.name}
+                secondary={resource.description}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Step>
   )
 }
