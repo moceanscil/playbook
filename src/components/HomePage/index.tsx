@@ -10,14 +10,14 @@ import Urgency from './Urgency'
 
 export default function HomePage() {
   const searchParams = useSearchParams()
-  const step = searchParams.get('step')
+  const action = searchParams.get('action')
   const county = searchParams.get('county')
   const need = searchParams.get('need')
   const urgency = searchParams.get('urgency')
 
-  if (step === 'neighbor' && county && need && urgency) return <Resources />
-  if (step === 'neighbor' && county && need) return <Urgency />
-  if (step === 'neighbor' && county) return <AreaOfNeed />
-  if (step === 'neighbor') return <Neighbor />
-  if (!step) return <Start />
+  if (action === 'neighbor' && county && need && urgency) return <Resources />
+  if (action === 'neighbor' && county && need) return <Urgency />
+  if (action === 'neighbor' && county) return <AreaOfNeed />
+  if (action === 'neighbor') return <Neighbor />
+  if (!action) return <Start />
 }

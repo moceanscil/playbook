@@ -65,7 +65,7 @@ export default function AreaOfNeed() {
       <LinkButton
         disabled={selected.length === 0}
         query={{
-          step: 'neighbor',
+          action: 'neighbor',
           county,
           need: selected.join(','),
         }}
