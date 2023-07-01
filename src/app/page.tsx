@@ -1,5 +1,7 @@
+import HomePage from '@/components/HomePage'
+
 export default function Home() {
-  return <main>Hello, world!</main>
+  return <HomePage />
 }
 
 export const metadata = {
