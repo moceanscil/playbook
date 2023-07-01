@@ -1,4 +1,4 @@
-import Airtable from 'airtable'
+import Airtable, { Collaborator } from 'airtable'
 import { NextResponse } from 'next/server'
 
 if (!process.env.AIRTABLE_API_KEY) {
@@ -27,11 +27,36 @@ Airtable.configure({ apiKey: process.env.AIRTABLE_API_KEY })
 const base = new Airtable().base(process.env.AIRTABLE_BASE_ID)
 
 export async function GET(request: Request) {
-  const result = await base(process.env.AIRTABLE_TABLE_ID as string)
+  const tagsResult = await base<{ Name: string }>('Tags')
     .select({
-      fields: ['Notes', 'Multi Select', 'Assignee', 'Tags'],
+      fields: ['Name'],
     })
     .all()
 
-  return NextResponse.json(result.map(item => item._rawJson))
+  const tags = tagsResult.map(tag => ({
+    id: tag.id,
+    ...tag.fields,
+  }))
+
+  const resourcesResult = await base<{
+    Name: string
+    Notes: string
+    'Multi Select': string[]
+    Assignee: Collaborator
+    Tags: string[]
+  }>(process.env.AIRTABLE_TABLE_ID as string)
+    .select({
+      fields: ['Name', 'Notes', 'Multi Select', 'Assignee', 'Tags'],
+    })
+    .all()
+
+  const resources = resourcesResult.map(resource => ({
+    id: resource.id,
+    ...resource.fields,
+    Tags: resource.fields.Tags?.map(tagId =>
+      tags.find(tag => tag.id === tagId)
+    ),
+  }))
+
+  return NextResponse.json(resources)
 }
