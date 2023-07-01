@@ -34,7 +34,7 @@ export default function AreaOfNeed() {
     )
 
   return (
-    <Step title="What area(s) do they need help with?">
+    <Step title="What area(s) do they need help with?" step="AreaOfNeed">
       <List>
         {AREAS_OF_NEED.map(area => (
           <ListItem key={area.value}>

@@ -6,7 +6,13 @@ import AreaOfNeed from './AreaOfNeed'
 import County from './County'
 import Resources from './Resources'
 import Start from './Start'
+import StepContext from './StepContext'
 import Urgency from './Urgency'
+
+const rootStyle = {
+  display: 'grid',
+  gridTemplateAreas: '"main"',
+}
 
 export default function HomePage() {
   const searchParams = useSearchParams()
@@ -15,9 +21,26 @@ export default function HomePage() {
   const need = searchParams.get('need')
   const urgency = searchParams.get('urgency')
 
-  if (action === 'neighbor' && county && need && urgency) return <Resources />
-  if (action === 'neighbor' && county && need) return <Urgency />
-  if (action === 'neighbor' && county) return <AreaOfNeed />
-  if (action === 'neighbor') return <County />
-  if (!action) return <Start />
+  const currentStep =
+    action === 'neighbor' && county && need && urgency
+      ? 'Resources'
+      : action === 'neighbor' && county && need
+      ? 'Urgency'
+      : action === 'neighbor' && county
+      ? 'AreaOfNeed'
+      : action === 'neighbor'
+      ? 'County'
+      : 'Start'
+
+  return (
+    <div style={rootStyle}>
+      <StepContext.Provider value={{ currentStep }}>
+        <Start />
+        <County />
+        <AreaOfNeed />
+        <Urgency />
+        <Resources />
+      </StepContext.Provider>
+    </div>
+  )
 }

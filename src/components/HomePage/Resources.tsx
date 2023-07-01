@@ -1,7 +1,5 @@
 import {
   Checkbox,
-  Fab,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -56,7 +54,7 @@ export default function Resources() {
   const emailBody = getEmailBody(selected, MOCK_RESOURCES)
 
   return (
-    <Step title="Here are some resources for your neighbor.">
+    <Step title="Here are some resources for your neighbor." step="Resources">
       <List>
         {MOCK_RESOURCES.map(resource => (
           <ListItem
