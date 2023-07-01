@@ -1,11 +1,5 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Link,
-  SxProps,
-} from '@mui/material'
+import { Button, Card, CardContent, CardHeader, SxProps } from '@mui/material'
+import Link from 'next/link'
 
 const styles: Record<string, SxProps> = {
   card: {
@@ -37,7 +31,7 @@ export default function Neighbor() {
           variant="contained"
           sx={styles.card}
           LinkComponent={Link}
-          href="/neighbor/monmouth"
+          href={{ query: { step: 'neighbor', county: 'monmouth' } }}
         >
           Monmouth
         </Button>
@@ -45,7 +39,7 @@ export default function Neighbor() {
           variant="contained"
           sx={styles.card}
           LinkComponent={Link}
-          href="/neighbor/ocean"
+          href={{ query: { step: 'neighbor', county: 'ocean' } }}
         >
           Ocean
         </Button>

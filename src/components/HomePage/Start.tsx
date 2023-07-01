@@ -27,7 +27,7 @@ export default function Start() {
         variant="contained"
         sx={styles.card}
         LinkComponent={Link}
-        href="neighbor"
+        href="?step=neighbor"
       >
         I&apos;m with a neighbor
       </Button>
@@ -35,7 +35,7 @@ export default function Start() {
         variant="contained"
         sx={styles.card}
         LinkComponent={Link}
-        href="update"
+        href="?step=update"
       >
         I want to update a resource
       </Button>

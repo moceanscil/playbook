@@ -1,28 +1,23 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-import Start from './Start'
-import Neighbor from './Neighbor'
+import { useSearchParams } from 'next/navigation'
+
 import AreaOfNeed from './AreaOfNeed'
-
-type Step = 'start' | 'neighbor' | 'neighbor/area-of-need' | 'update'
-
-const getStep = (params: { step?: string }): Step => {
-  if (!params.step) return 'start'
-  const segments = params.step.split('/')
-
-  if (segments.length === 2 && segments[0] === 'neighbor') {
-    return 'neighbor/area-of-need'
-  }
-
-  return segments.at(-1)
-}
+import Neighbor from './Neighbor'
+import Resources from './Resources'
+import Start from './Start'
+import Urgency from './Urgency'
 
 export default function HomePage() {
-  const params = useParams()
-  const step = getStep(params)
+  const searchParams = useSearchParams()
+  const step = searchParams.get('step')
+  const county = searchParams.get('county')
+  const need = searchParams.get('need')
+  const urgency = searchParams.get('urgency')
 
-  if (step === 'start') return <Start />
+  if (step === 'neighbor' && county && need && urgency) return <Resources />
+  if (step === 'neighbor' && county && need) return <Urgency />
+  if (step === 'neighbor' && county) return <AreaOfNeed />
   if (step === 'neighbor') return <Neighbor />
-  if (step === 'neighbor/area-of-need') return <AreaOfNeed />
+  if (!step) return <Start />
 }

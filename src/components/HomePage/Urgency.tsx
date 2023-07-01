@@ -10,61 +10,54 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Radio,
 } from '@mui/material'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
-const AREAS_OF_NEED = [
-  { label: 'Food', value: 'food' },
-  { label: 'Housing', value: 'housing' },
-  { label: 'Transport', value: 'transport' },
-  { label: 'Healthcare', value: 'healthcare' },
-  { label: 'Education', value: 'education' },
+const URGENCY_LEVELS = [
+  { label: '6 hours', value: 6 },
+  { label: '24 hours', value: 24 },
+  { label: '3 days', value: 72 },
 ]
 
-export default function AreaOfNeed() {
-  const [selected, setSelected] = useState<string[]>([])
+export default function Urgency() {
+  const [selectedUrgency, setSelected] = useState<number | undefined>()
 
   const searchParams = useSearchParams()
   const county = searchParams.get('county') as string
-
-  const handleToggle = (valueToToggle: string) =>
-    setSelected(current =>
-      current.includes(valueToToggle)
-        ? current.filter(value => value !== valueToToggle)
-        : [...current, valueToToggle]
-    )
+  const need = searchParams.get('need')
 
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <CardHeader title="What area of need?" />
+      <CardHeader title="How urgently?" />
       <CardContent
         sx={{
           flexGrow: 1,
         }}
       >
         <List>
-          {AREAS_OF_NEED.map(area => (
-            <ListItem key={area.value}>
+          {URGENCY_LEVELS.map(urgency => (
+            <ListItem key={urgency.value}>
               <ListItemButton
                 role={undefined}
-                onClick={() => handleToggle(area.value)}
+                onClick={() => setSelected(urgency.value)}
               >
                 <ListItemIcon>
-                  <Checkbox
+                  <Radio
                     edge="start"
-                    checked={selected.indexOf(area.value) !== -1}
+                    checked={urgency.value === selectedUrgency}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{
-                      'aria-labelledby': `AreaOfNeed__${area.value}`,
+                      'aria-labelledby': `Urgency__${urgency.value}`,
                     }}
                   />
                 </ListItemIcon>
                 <ListItemText
-                  id={`AreaOfNeed__${area.value}`}
-                  primary={area.label}
+                  id={`Urgency__${urgency.value}`}
+                  primary={urgency.label}
                 />
               </ListItemButton>
             </ListItem>
@@ -73,14 +66,15 @@ export default function AreaOfNeed() {
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
-          disabled={selected.length === 0}
+          disabled={!selectedUrgency}
           variant="contained"
           LinkComponent={Link}
           href={{
             query: {
               step: 'neighbor',
               county,
-              need: selected.join(','),
+              need,
+              urgency: selectedUrgency,
             },
           }}
         >

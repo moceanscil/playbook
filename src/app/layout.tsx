@@ -8,6 +8,7 @@ import {
   ThemeProvider,
 } from '@mui/material'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -16,11 +17,13 @@ import '@fontsource/roboto/700.css'
 
 import logo from './logo.png'
 
-const LOGO_COLOR = 'rgb(77, 169, 197)'
+const LOGO_COLOR_PRIMARY = 'rgb(77, 169, 197)'
+const LOGO_COLOR_SECONDARY = 'rgb(249, 200, 59)'
 
 const theme = createTheme({
   palette: {
-    primary: { main: LOGO_COLOR, contrastText: 'white' },
+    primary: { main: LOGO_COLOR_PRIMARY, contrastText: 'white' },
+    secondary: { main: LOGO_COLOR_SECONDARY },
   },
 })
 
@@ -46,13 +49,15 @@ export default function RootLayout({
               gap: 4,
             }}
           >
-            <Box sx={{ textAlign: 'center', flexGrow: 0 }}>
-              <Image
-                src={logo}
-                alt="The MOCEANS CIL logo"
-                style={{ height: 'auto', width: '100%', maxWidth: 460 }}
-                priority
-              />
+            <Box sx={{ textAlign: 'center', flexGrow: 0, pt: 4 }}>
+              <Link href="/">
+                <Image
+                  src={logo}
+                  alt="The MOCEANS CIL logo"
+                  style={{ height: 'auto', width: '100%', maxWidth: 230 }}
+                  priority
+                />
+              </Link>
             </Box>
 
             {children}
