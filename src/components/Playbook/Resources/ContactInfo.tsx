@@ -49,10 +49,15 @@ export default function ContactInfo({ resource }: { resource: Resource }) {
       )}
 
       {resource.Address && (
-        <Box sx={styles.item}>
+        <Link
+          href={`https://www.google.com/maps/search/?api=1&query=${resource.Address}`}
+          target="_blank"
+          rel="noreferrer"
+          sx={styles.item}
+        >
           <LocationOn />
           {resource.Address}
-        </Box>
+        </Link>
       )}
     </Box>
   )
