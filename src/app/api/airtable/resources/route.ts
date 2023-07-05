@@ -1,4 +1,4 @@
-import Airtable, { Collaborator } from 'airtable'
+import Airtable from 'airtable'
 import { NextResponse } from 'next/server'
 
 if (!process.env.AIRTABLE_API_KEY) {
