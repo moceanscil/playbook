@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server'
-
 import assertEnvVarsSet from '@/helpers/assertEnvVarsSet'
 
 assertEnvVarsSet()
