@@ -27,35 +27,42 @@ Airtable.configure({ apiKey: process.env.AIRTABLE_API_KEY })
 const base = new Airtable().base(process.env.AIRTABLE_BASE_ID)
 
 export async function GET(request: Request) {
-  const tagsResult = await base<{ Name: string }>('Tags')
-    .select({
-      fields: ['Name'],
-    })
-    .all()
+  const { searchParams } = new URL(request.url)
+  const county = searchParams.get('county')
+  const needs = searchParams.get('need')?.split(',')
+  const urgency = searchParams.get('urgency')
 
-  const tags = tagsResult.map(tag => ({
-    id: tag.id,
-    ...tag.fields,
-  }))
+  if (!county)
+    return NextResponse.json({ error: 'missing_county' }, { status: 400 })
+  if (!needs || !needs.length)
+    return NextResponse.json({ error: 'missing_need' }, { status: 400 })
+  if (!urgency)
+    return NextResponse.json({ error: 'missing_urgency' }, { status: 400 })
 
   const resourcesResult = await base<{
-    Name: string
-    Notes: string
-    'Multi Select': string[]
-    Assignee: Collaborator
-    Tags: string[]
+    'Name of Resource': string
+    'Program Summary': string
   }>(process.env.AIRTABLE_TABLE_ID as string)
+    // TODO: Add urgency to query once field structure has been determined.
     .select({
-      fields: ['Name', 'Notes', 'Multi Select', 'Assignee', 'Tags'],
+      fields: ['Name of Resource', 'Program Summary'],
+      filterByFormula: `AND(
+          OR(
+            ${needs
+              .map(need => `SEARCH("${need}", ARRAYJOIN({Resource Type}, ","))`)
+              .join(',')}
+          ),
+          OR(
+            SEARCH("${county}", ARRAYJOIN({County Served}, ",")),
+            SEARCH("State", ARRAYJOIN({County Served}, ","))
+          )
+        )`,
     })
     .all()
 
   const resources = resourcesResult.map(resource => ({
     id: resource.id,
     ...resource.fields,
-    Tags: resource.fields.Tags?.map(tagId =>
-      tags.find(tag => tag.id === tagId)
-    ),
   }))
 
   return NextResponse.json(resources)
