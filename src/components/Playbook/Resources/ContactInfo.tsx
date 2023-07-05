@@ -16,6 +16,13 @@ const styles: Record<string, SxProps> = {
     gridTemplateColumns: 'min-content 1fr',
     gap: 1,
   },
+
+  websiteLink: {
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    flexShrink: 1,
+  },
 }
 
 export default function ContactInfo({ resource }: { resource: Resource }) {
@@ -29,7 +36,8 @@ export default function ContactInfo({ resource }: { resource: Resource }) {
           sx={styles.item}
         >
           <LinkIcon />
-          {resource['Website Link']}
+
+          <Box sx={styles.websiteLink}>{resource['Website Link']}</Box>
         </Link>
       )}
 

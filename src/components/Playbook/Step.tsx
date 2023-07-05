@@ -11,6 +11,7 @@ const styles: Record<string, SxProps> = {
     alignItems: 'center',
     gap: 2,
 
+    overflow: 'hidden',
     gridArea: 'main',
 
     transition: '0.5s',
