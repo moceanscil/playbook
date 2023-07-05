@@ -62,11 +62,11 @@ export default async function getAirtableMeta() {
   if (!countyServedField) throw new Error('county_served_field_not_found')
 
   return {
-    resourceTypeValues: resourceTypeField.options.choices.map(
-      choice => choice.name
-    ),
-    countyServedValues: countyServedField.options.choices.map(
-      choice => choice.name
-    ),
+    resourceTypeValues: resourceTypeField.options.choices
+      .map(choice => choice.name)
+      .sort(),
+    countyServedValues: countyServedField.options.choices
+      .map(choice => choice.name)
+      .sort(),
   }
 }
