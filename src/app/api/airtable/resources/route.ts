@@ -32,7 +32,14 @@ export async function GET(request: Request) {
   )
     // TODO: Add urgency to query once field structure has been determined.
     .select({
-      fields: ['Name of Resource', 'Program Summary', 'Website Link'],
+      fields: [
+        'Name of Resource',
+        'Resource Type',
+        'Program Summary',
+        'Website Link',
+        'Phone',
+        'Address',
+      ],
       filterByFormula: `AND(
           OR(
             ${resourceTypes
