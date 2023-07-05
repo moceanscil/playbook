@@ -30,23 +30,21 @@ export default function ResourcesLoading() {
           key={index}
           secondaryAction={<Checkbox edge="end" disabled />}
         >
-          <ListItemButton>
-            <ListItemText
-              primary={
-                <>
-                  <Skeleton sx={styles.primarySkeleton} />
-                  <Skeleton sx={styles.primarySkeleton} />
-                </>
-              }
-              secondary={
-                <>
-                  <Skeleton sx={styles.secondarySkeleton} />
-                  <Skeleton sx={styles.secondarySkeleton} />
-                  <Skeleton sx={styles.secondarySkeleton} />
-                </>
-              }
-            />
-          </ListItemButton>
+          <ListItemText
+            primary={
+              <>
+                <Skeleton sx={styles.primarySkeleton} />
+                <Skeleton sx={styles.primarySkeleton} />
+              </>
+            }
+            secondary={
+              <>
+                <Skeleton sx={styles.secondarySkeleton} />
+                <Skeleton sx={styles.secondarySkeleton} />
+                <Skeleton sx={styles.secondarySkeleton} />
+              </>
+            }
+          />
         </ListItem>
       ))}
     </>
