@@ -7,22 +7,16 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
+import { useContext, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 
 import LinkButton from './LinkButton'
 import Step from './Step'
-
-const AREAS_OF_NEED = [
-  { label: 'Food', value: 'food' },
-  { label: 'Housing', value: 'housing' },
-  { label: 'Transport', value: 'transport' },
-  { label: 'Healthcare', value: 'healthcare' },
-  { label: 'Education', value: 'education' },
-]
+import PlaybookContext from './PlaybookContext'
 
 export default function AreaOfNeed() {
   const [selected, setSelected] = useState<string[]>([])
+  const { resourceTypeValues } = useContext(PlaybookContext)
 
   const searchParams = useSearchParams()
   const county = searchParams.get('county') as string
@@ -37,26 +31,29 @@ export default function AreaOfNeed() {
   return (
     <Step title="What area(s) do they need help with?" step="AreaOfNeed">
       <List>
-        {AREAS_OF_NEED.map(area => (
-          <ListItem key={area.value}>
+        {resourceTypeValues.map(resourceType => (
+          <ListItem key={resourceType}>
             <ListItemButton
               role={undefined}
-              onClick={() => handleToggle(area.value)}
+              onClick={() => handleToggle(resourceType)}
             >
               <ListItemIcon>
                 <Checkbox
                   edge="start"
-                  checked={selected.indexOf(area.value) !== -1}
+                  checked={selected.indexOf(resourceType) !== -1}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{
-                    'aria-labelledby': `AreaOfNeed__${area.value}`,
+                    'aria-labelledby': `AreaOfNeed__${resourceType.replaceAll(
+                      ' ',
+                      '-'
+                    )}`,
                   }}
                 />
               </ListItemIcon>
               <ListItemText
-                id={`AreaOfNeed__${area.value}`}
-                primary={area.label}
+                id={`AreaOfNeed__${resourceType.replaceAll(' ', '-')}`}
+                primary={resourceType}
               />
             </ListItemButton>
           </ListItem>
