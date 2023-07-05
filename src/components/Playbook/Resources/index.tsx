@@ -10,8 +10,8 @@ import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 import ResourcesLoading from './ResourcesLoading'
-import Step from '../Step'
 import SendButton from './SendButton'
+import Step from '../Step'
 import useAirtableResources from './useAirtableResources'
 
 const styles: Record<string, SxProps> = {
