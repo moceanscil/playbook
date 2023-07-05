@@ -15,12 +15,12 @@ const base = new Airtable().base(process.env.AIRTABLE_BASE_ID)
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const county = searchParams.get('county')
-  const needs = searchParams.get('need')?.split(',')
+  const resourceTypes = searchParams.get('resourceTypes')?.split(',')
   const urgency = searchParams.get('urgency')
 
   if (!county)
     return NextResponse.json({ error: 'missing_county' }, { status: 400 })
-  if (!needs || !needs.length)
+  if (!resourceTypes || !resourceTypes.length)
     return NextResponse.json({ error: 'missing_need' }, { status: 400 })
   if (!urgency)
     return NextResponse.json({ error: 'missing_urgency' }, { status: 400 })
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
       fields: ['Name of Resource', 'Program Summary'],
       filterByFormula: `AND(
           OR(
-            ${needs
+            ${resourceTypes
               .map(need => `SEARCH("${need}", ARRAYJOIN({Resource Type}, ","))`)
               .join(',')}
           ),
