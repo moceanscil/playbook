@@ -1,15 +1,17 @@
 import {
   Checkbox,
+  Divider,
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
   SxProps,
 } from '@mui/material'
+import { Fragment, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 
+import ContactInfo from './ContactInfo'
 import ResourcesLoading from './ResourcesLoading'
+import ResourceTypes from './ResourceTypes'
 import SendButton from './SendButton'
 import Step from '../Step'
 import useAirtableResources from './useAirtableResources'
@@ -17,7 +19,7 @@ import useAirtableResources from './useAirtableResources'
 const styles: Record<string, SxProps> = {
   list: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 600,
   },
 }
 
@@ -44,29 +46,35 @@ export default function Resources() {
         {isLoading && <ResourcesLoading />}
 
         {!isLoading &&
-          resources.map(resource => (
-            <ListItem
-              key={resource.id}
-              secondaryAction={
-                <Checkbox
-                  edge="end"
-                  checked={selected.includes(resource.id)}
-                  onChange={() => handleToggle(resource.id)}
-                />
-              }
-            >
-              <ListItemButton
-                LinkComponent="a"
-                href={resource['Website Link']}
-                target="_blank"
-                rel="noreferrer"
+          resources.map((resource, index) => (
+            <Fragment key={resource.id}>
+              <ListItem
+                key={resource.id}
+                secondaryAction={
+                  <Checkbox
+                    edge="end"
+                    checked={selected.includes(resource.id)}
+                    onChange={() => handleToggle(resource.id)}
+                  />
+                }
               >
                 <ListItemText
                   primary={resource['Name of Resource']}
-                  secondary={resource['Program Summary']}
+                  secondary={
+                    <>
+                      <ResourceTypes
+                        resourceTypes={resource['Resource Type']}
+                      />
+                      {resource['Program Summary']}
+                      <ContactInfo resource={resource} />
+                    </>
+                  }
+                  secondaryTypographyProps={{ component: 'div' }}
                 />
-              </ListItemButton>
-            </ListItem>
+              </ListItem>
+
+              <Divider component="li" />
+            </Fragment>
           ))}
       </List>
 
