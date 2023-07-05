@@ -48,7 +48,8 @@ export async function GET(request: Request) {
           ),
           OR(
             SEARCH("${county}", ARRAYJOIN({County Served}, ",")),
-            SEARCH("State", ARRAYJOIN({County Served}, ","))
+            SEARCH("State", ARRAYJOIN({County Served}, ",")),
+            SEARCH("Federal", ARRAYJOIN({County Served}, ","))
           )
         )`,
     })
