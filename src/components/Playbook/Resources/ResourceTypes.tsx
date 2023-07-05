@@ -1,8 +1,7 @@
-import { Box, Chip, SxProps } from '@mui/material'
+import { Box, SxProps, Typography } from '@mui/material'
 
 const styles: Record<string, SxProps> = {
   root: {
-    mt: 1,
     mb: 2,
   },
 
@@ -17,11 +16,10 @@ export default function ResourceTypes({
 }: {
   resourceTypes: string[]
 }) {
+  if (!resourceTypes.length) return null
   return (
     <Box sx={styles.root}>
-      {resourceTypes.map(label => (
-        <Chip key={label} label={label} size="small" sx={styles.chip} />
-      ))}
+      <Typography variant="caption">{resourceTypes.join(', ')}</Typography>
     </Box>
   )
 }
