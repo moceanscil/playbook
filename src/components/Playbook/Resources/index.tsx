@@ -40,6 +40,8 @@ export default function Resources() {
         : [...current, valueToToggle]
     )
 
+  const isLastResource = (index: number) => index === resources.length - 1
+
   return (
     <Step title="Here are some resources for your neighbor." step="Resources">
       <List sx={styles.list}>
@@ -73,7 +75,7 @@ export default function Resources() {
                 />
               </ListItem>
 
-              <Divider component="li" />
+              {!isLastResource(index) && <Divider component="li" />}
             </Fragment>
           ))}
       </List>
