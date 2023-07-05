@@ -1,23 +1,9 @@
 import Airtable from 'airtable'
 import { NextResponse } from 'next/server'
 
-if (!process.env.AIRTABLE_API_KEY) {
-  throw new Error(
-    'Please define AIRTABLE_API_KEY in your environment and restart/redeploy this service. See the README for more detail.'
-  )
-}
+import assertEnvVarsSet from '@/helpers/assertEnvVarsSet'
 
-if (!process.env.AIRTABLE_BASE_ID) {
-  throw new Error(
-    'Please define AIRTABLE_BASE_ID in your environment and restart/redeploy this service. See the README for more detail.'
-  )
-}
-
-if (!process.env.AIRTABLE_TABLE_ID) {
-  throw new Error(
-    'Please define AIRTABLE_TABLE_ID in your environment and restart/redeploy this service. See the README for more detail.'
-  )
-}
+assertEnvVarsSet()
 
 // The Airtable SDK automatically uses the `AIRTABLE_API_KEY` environment
 // variable when connecting to the Airtable API, but I've set it explicitly here
