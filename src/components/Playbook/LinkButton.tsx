@@ -2,9 +2,6 @@ import { Button, SxProps } from '@mui/material'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
-const toStringWithMailFriendlySpaces = (params: URLSearchParams) =>
-  params.toString().replaceAll('+', '%20')
-
 export default function LinkButton({
   href = '',
   query,
@@ -22,8 +19,7 @@ export default function LinkButton({
   startIcon?: ReactNode
   variant?: 'contained'
 }) {
-  if (query)
-    href += '?' + toStringWithMailFriendlySpaces(new URLSearchParams(query))
+  if (query) href += '?' + new URLSearchParams(query)
 
   return (
     <Button

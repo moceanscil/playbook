@@ -1,7 +1,28 @@
 import { Send } from '@mui/icons-material'
 
-import LinkButton from '../LinkButton'
 import Resource from '@/types/Resource'
+import { Fab, SxProps } from '@mui/material'
+
+const toStringWithMailFriendlySpaces = (params: URLSearchParams) =>
+  params.toString().replaceAll('+', '%20')
+
+const styles: Record<string, SxProps> = {
+  button: {
+    position: 'fixed',
+    zIndex: 1,
+    bottom: 0,
+    right: 0,
+    mb: 2,
+    mr: 2,
+  },
+  spacerButton: {
+    opacity: 0,
+    pointerEvents: 'none',
+  },
+  icon: {
+    mr: 1,
+  },
+}
 
 const getResourceTextSummary = (resource: Resource): string => {
   let summary =
@@ -31,16 +52,25 @@ export default function SendButton({
   resources: Resource[]
 }) {
   const emailBody = getEmailBody(selectedResourceIds, resources)
+  const params = new URLSearchParams({
+    subject: 'Some helpful resources for you',
+    body: emailBody,
+  })
 
   return (
-    <LinkButton
-      disabled={!selectedResourceIds.length}
-      href="mailto:"
-      query={{ subject: 'Some helpful resources for you', body: emailBody }}
-      startIcon={<Send />}
-      variant="contained"
-    >
-      Send
-    </LinkButton>
+    <>
+      <Fab
+        disabled={!selectedResourceIds.length}
+        href={`mailto:?${toStringWithMailFriendlySpaces(params)}`}
+        variant="extended"
+        sx={styles.button}
+        color="primary"
+      >
+        <Send sx={styles.icon} />
+        Send
+      </Fab>
+
+      <Fab variant="extended" sx={styles.spacerButton} disabled />
+    </>
   )
 }
