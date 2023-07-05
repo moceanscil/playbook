@@ -18,11 +18,9 @@ import '@fontsource/montserrat/500.css'
 import '@fontsource/montserrat/700.css'
 
 import logo from './logo.png'
+import { LOGO_COLOR_PRIMARY, LOGO_COLOR_SECONDARY } from '@/constants'
 import PlaybookProgress from '@/components/PlaybookProgress'
 import { StepContextProvider } from '@/components/StepContext'
-
-const LOGO_COLOR_PRIMARY = 'rgb(77, 169, 197)'
-const LOGO_COLOR_SECONDARY = 'rgb(249, 200, 59)'
 
 const theme = createTheme({
   palette: {

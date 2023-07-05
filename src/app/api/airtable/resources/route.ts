@@ -2,6 +2,8 @@ import Airtable from 'airtable'
 import { NextResponse } from 'next/server'
 
 import assertEnvVarsSet from '@/helpers/assertEnvVarsSet'
+import Resource from '@/types/Resource'
+import ResourceFields from '@/types/ResourceFields'
 
 assertEnvVarsSet()
 
@@ -25,13 +27,12 @@ export async function GET(request: Request) {
   if (!urgency)
     return NextResponse.json({ error: 'missing_urgency' }, { status: 400 })
 
-  const resourcesResult = await base<{
-    'Name of Resource': string
-    'Program Summary': string
-  }>(process.env.AIRTABLE_TABLE_ID as string)
+  const resourcesResult = await base<ResourceFields>(
+    process.env.AIRTABLE_TABLE_ID as string
+  )
     // TODO: Add urgency to query once field structure has been determined.
     .select({
-      fields: ['Name of Resource', 'Program Summary'],
+      fields: ['Name of Resource', 'Program Summary', 'Website Link'],
       filterByFormula: `AND(
           OR(
             ${resourceTypes

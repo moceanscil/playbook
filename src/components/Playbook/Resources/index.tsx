@@ -4,30 +4,32 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  SxProps,
 } from '@mui/material'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
-import Resource from '@/types/Resource'
+import ResourcesLoading from './ResourcesLoading'
 import Step from '../Step'
 import SendButton from './SendButton'
+import useAirtableResources from './useAirtableResources'
 
-const MOCK_RESOURCES: Resource[] = [
-  {
-    id: '1',
-    name: 'Test resource 1',
-    description: 'This is a description',
-    url: 'https://google.com',
+const styles: Record<string, SxProps> = {
+  list: {
+    width: '100%',
+    maxWidth: 400,
   },
-  {
-    id: '2',
-    name: 'Test resource 2',
-    description: 'This is a description as well',
-    url: 'https://google.com',
-  },
-]
+}
 
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
+  const searchParams = useSearchParams()
+
+  const { isLoading, resources } = useAirtableResources(
+    searchParams.get('county') as string,
+    searchParams.get('need') as string,
+    searchParams.get('urgency') as string
+  )
 
   const handleToggle = (valueToToggle: string) =>
     setSelected(current =>
@@ -38,34 +40,37 @@ export default function Resources() {
 
   return (
     <Step title="Here are some resources for your neighbor." step="Resources">
-      <List>
-        {MOCK_RESOURCES.map(resource => (
-          <ListItem
-            key={resource.id}
-            secondaryAction={
-              <Checkbox
-                edge="end"
-                checked={selected.includes(resource.id)}
-                onChange={() => handleToggle(resource.id)}
-              />
-            }
-          >
-            <ListItemButton
-              LinkComponent="a"
-              href={resource.url}
-              target="_blank"
-              rel="noreferrer"
+      <List sx={styles.list}>
+        {isLoading && <ResourcesLoading />}
+
+        {!isLoading &&
+          resources.map(resource => (
+            <ListItem
+              key={resource.id}
+              secondaryAction={
+                <Checkbox
+                  edge="end"
+                  checked={selected.includes(resource.id)}
+                  onChange={() => handleToggle(resource.id)}
+                />
+              }
             >
-              <ListItemText
-                primary={resource.name}
-                secondary={resource.description}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+              <ListItemButton
+                LinkComponent="a"
+                href={resource['Website Link']}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ListItemText
+                  primary={resource['Name of Resource']}
+                  secondary={resource['Program Summary']}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
 
-      <SendButton selectedResourceIds={selected} resources={MOCK_RESOURCES} />
+      <SendButton selectedResourceIds={selected} resources={resources} />
     </Step>
   )
 }

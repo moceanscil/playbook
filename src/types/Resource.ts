@@ -1,6 +1,7 @@
-export default interface Resource {
+import ResourceFields from './ResourceFields'
+
+type Resource = ResourceFields & {
   id: string
-  name: string
-  description: string
-  url: string
 }
+
+export default Resource
