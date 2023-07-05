@@ -23,7 +23,7 @@ interface AirtableTable {
   fields: AirtableField[]
 }
 
-export async function GET() {
+export default async function getAirtableMeta() {
   // @see https://airtable.com/api/meta
   const tablesResponse = await fetch(
     `https://api.airtable.com/v0/meta/bases/${process.env.AIRTABLE_BASE_ID}/tables`,
@@ -32,16 +32,11 @@ export async function GET() {
     }
   )
 
-  if (!tablesResponse.ok)
-    return NextResponse.json(
-      { error: 'unknown' },
-      { status: tablesResponse.status }
-    )
+  if (!tablesResponse.ok) throw new Error('unknown')
 
   const tables: { tables: AirtableTable[] } = await tablesResponse.json()
 
-  if (!tables || !tables.tables)
-    return NextResponse.json({ error: 'no_tables_found' }, { status: 404 })
+  if (!tables || !tables.tables) throw new Error('no_tables_found')
 
   const table = tables.tables.find(
     (table: AirtableTable) =>
@@ -49,33 +44,24 @@ export async function GET() {
       table.name === process.env.AIRTABLE_TABLE_ID
   )
 
-  if (!table)
-    return NextResponse.json({ error: 'table_not_found' }, { status: 404 })
+  if (!table) throw new Error('table_not_found')
 
   const resourceTypeField = table.fields.find(
     field => field.name === 'Resource Type'
   )
-  if (!resourceTypeField)
-    return NextResponse.json(
-      { error: 'resource_type_field_not_found' },
-      { status: 404 }
-    )
+  if (!resourceTypeField) throw new Error('resource_type_field_not_found')
 
   const countyServedField = table.fields.find(
     field => field.name === 'County Served'
   )
-  if (!countyServedField)
-    return NextResponse.json(
-      { error: 'county_served_field_not_found' },
-      { status: 404 }
-    )
+  if (!countyServedField) throw new Error('county_served_field_not_found')
 
-  return NextResponse.json({
+  return {
     resourceTypeValues: resourceTypeField.options.choices.map(
       choice => choice.name
     ),
     countyServedValues: countyServedField.options.choices.map(
       choice => choice.name
     ),
-  })
+  }
 }

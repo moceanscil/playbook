@@ -1,7 +1,17 @@
+import getAirtableMeta from '@/helpers/getAirtableMeta'
 import Playbook from '@/components/Playbook'
 
-export default function Home() {
-  return <Playbook />
+export default async function Home() {
+  const airtableMeta = await getAirtableMeta()
+  const countyServedValues = airtableMeta.countyServedValues
+  const resourceTypeValues = airtableMeta.resourceTypeValues
+
+  return (
+    <Playbook
+      countyServedValues={countyServedValues}
+      resourceTypeValues={resourceTypeValues}
+    />
+  )
 }
 
 export const metadata = {
