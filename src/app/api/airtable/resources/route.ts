@@ -2,7 +2,6 @@ import Airtable from 'airtable'
 import { NextResponse } from 'next/server'
 
 import assertEnvVarsSet from '@/helpers/assertEnvVarsSet'
-import Resource from '@/types/Resource'
 import ResourceFields from '@/types/ResourceFields'
 
 assertEnvVarsSet()
