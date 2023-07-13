@@ -1,7 +1,9 @@
+import { Fab, SxProps } from '@mui/material'
 import { Send } from '@mui/icons-material'
+import { useContext } from 'react'
 
 import Resource from '@/types/Resource'
-import { Fab, SxProps } from '@mui/material'
+import ResourcesContext from '@/components/ResourcesContext'
 
 const toStringWithMailFriendlySpaces = (params: URLSearchParams) =>
   params.toString().replaceAll('+', '%20')
@@ -46,13 +48,12 @@ const getEmailBody = (resourceIds: string[], resources: Resource[]): string =>
 
 export default function SendButton({
   selectedResourceIds,
-  resources,
   onClick,
 }: {
   selectedResourceIds: string[]
-  resources: Resource[]
   onClick: () => void
 }) {
+  const { resources } = useContext(ResourcesContext)
   const emailBody = getEmailBody(selectedResourceIds, resources)
   const params = new URLSearchParams({
     subject: 'Some helpful resources for you',

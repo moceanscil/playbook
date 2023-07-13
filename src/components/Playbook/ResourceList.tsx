@@ -1,19 +1,11 @@
-import Resource from '@/types/Resource'
-import {
-  List,
-  ListItem,
-  Checkbox,
-  ListItemText,
-  Divider,
-  SxProps,
-} from '@mui/material'
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode, useContext } from 'react'
+import { List, ListItem, ListItemText, Divider, SxProps } from '@mui/material'
+
 import ContactInfo from './Resources/ContactInfo'
 import Eligibility from './Resources/Eligibility'
 import ResourceTypes from './Resources/ResourceTypes'
 import ResourcesLoading from './Resources/ResourcesLoading'
-import useAirtableResources from './Resources/useAirtableResources'
-import { useSearchParams } from 'next/navigation'
+import ResourcesContext from '../ResourcesContext'
 
 const styles: Record<string, SxProps> = {
   list: {
@@ -23,30 +15,20 @@ const styles: Record<string, SxProps> = {
 }
 
 export default function ResourceList({
-  filter = () => true,
   renderSecondaryAction,
 }: {
-  filter?: (resource: Resource) => boolean
   renderSecondaryAction?: (resourceId: string) => ReactNode
 }) {
-  const searchParams = useSearchParams()
+  const { isLoading, resources } = useContext(ResourcesContext)
 
-  const county = searchParams.get('county') as string
-  const need = searchParams.get('need') as string
-  const urgency = searchParams.get('urgency') as string
-
-  const { isLoading, resources } = useAirtableResources(county, need, urgency)
-
-  const filteredResources = resources.filter(filter)
-  const isLastResource = (index: number) =>
-    index === filteredResources.length - 1
+  const isLastResource = (index: number) => index === resources.length - 1
 
   return (
     <List sx={styles.list}>
       {isLoading && <ResourcesLoading />}
 
       {!isLoading &&
-        filteredResources.map((resource, index) => (
+        resources.map((resource, index) => (
           <Fragment key={resource.id}>
             <ListItem
               secondaryAction={

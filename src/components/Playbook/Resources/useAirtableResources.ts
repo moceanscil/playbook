@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import Resource from '@/types/Resource'
 
 export default function useAirtableResources(
-  county: string,
-  resourceTypes: string,
-  urgency: string
+  county: string | null,
+  resourceTypes: string | null,
+  urgency: string | null
 ) {
   const [isLoading, setIsLoading] = useState(false)
   const [resources, setResources] = useState<Resource[]>([])
