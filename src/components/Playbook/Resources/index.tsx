@@ -1,28 +1,11 @@
-import {
-  Checkbox,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  SxProps,
-} from '@mui/material'
-import { Fragment, useState } from 'react'
+import { Checkbox } from '@mui/material'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 
-import ContactInfo from './ContactInfo'
-import Eligibility from './Eligibility'
-import ResourcesLoading from './ResourcesLoading'
-import ResourceTypes from './ResourceTypes'
+import ResourceList from '../ResourceList'
 import SendButton from './SendButton'
 import Step from '../Step'
 import useAirtableResources from './useAirtableResources'
-
-const styles: Record<string, SxProps> = {
-  list: {
-    width: '100%',
-    maxWidth: 600,
-  },
-}
 
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
@@ -42,8 +25,6 @@ export default function Resources() {
         : [...current, valueToToggle]
     )
 
-  const isLastResource = (index: number) => index === resources.length - 1
-
   const handleClickSend = () => {
     const params = new URLSearchParams({
       county,
@@ -55,42 +36,15 @@ export default function Resources() {
 
   return (
     <Step title="Here are some resources for your neighbor." step="Resources">
-      <List sx={styles.list}>
-        {isLoading && <ResourcesLoading />}
-
-        {!isLoading &&
-          resources.map((resource, index) => (
-            <Fragment key={resource.id}>
-              <ListItem
-                key={resource.id}
-                secondaryAction={
-                  <Checkbox
-                    edge="end"
-                    checked={selected.includes(resource.id)}
-                    onChange={() => handleToggle(resource.id)}
-                  />
-                }
-              >
-                <ListItemText
-                  primary={resource['Name of Resource']}
-                  secondary={
-                    <>
-                      <ResourceTypes
-                        resourceTypes={resource['Resource Type']}
-                      />
-                      <Eligibility eligibility={resource.Eligibility} />
-                      {resource['Program Summary']}
-                      <ContactInfo resource={resource} />
-                    </>
-                  }
-                  secondaryTypographyProps={{ component: 'div' }}
-                />
-              </ListItem>
-
-              {!isLastResource(index) && <Divider component="li" />}
-            </Fragment>
-          ))}
-      </List>
+      <ResourceList
+        renderSecondaryAction={resourceId => (
+          <Checkbox
+            edge="end"
+            checked={selected.includes(resourceId)}
+            onChange={() => handleToggle(resourceId)}
+          />
+        )}
+      />
 
       <SendButton
         selectedResourceIds={selected}
