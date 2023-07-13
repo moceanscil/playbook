@@ -5,6 +5,7 @@ type ResourceFields = {
   'Website Link': string
   Phone?: string
   Address?: string
+  Eligibility?: string
 }
 
 export default ResourceFields

@@ -38,6 +38,7 @@ export async function GET(request: Request) {
         'Website Link',
         'Phone',
         'Address',
+        'Eligibility',
       ],
       filterByFormula: `AND(
           OR(

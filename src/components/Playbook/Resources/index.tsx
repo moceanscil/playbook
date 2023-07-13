@@ -10,6 +10,7 @@ import { Fragment, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import ContactInfo from './ContactInfo'
+import Eligibility from './Eligibility'
 import ResourcesLoading from './ResourcesLoading'
 import ResourceTypes from './ResourceTypes'
 import SendButton from './SendButton'
@@ -67,6 +68,7 @@ export default function Resources() {
                       <ResourceTypes
                         resourceTypes={resource['Resource Type']}
                       />
+                      <Eligibility eligibility={resource.Eligibility} />
                       {resource['Program Summary']}
                       <ContactInfo resource={resource} />
                     </>
