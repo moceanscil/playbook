@@ -30,6 +30,10 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Montserrat',
+    h1: {
+      fontSize: '1.25rem',
+      lineHeight: 1.6,
+    },
   },
 })
 

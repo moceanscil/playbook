@@ -52,7 +52,7 @@ export default function Step({
                 : 'translateY(-10px)',
           }}
         >
-          <Typography variant="h6" sx={styles.title}>
+          <Typography variant="h1" sx={styles.title}>
             {title}
           </Typography>
 
