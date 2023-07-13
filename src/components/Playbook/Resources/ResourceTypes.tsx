@@ -4,11 +4,6 @@ const styles: Record<string, SxProps> = {
   root: {
     mb: 2,
   },
-
-  chip: {
-    mr: 1,
-    mt: 1,
-  },
 }
 
 export default function ResourceTypes({
