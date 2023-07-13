@@ -1,9 +1,8 @@
 import { Checkbox } from '@mui/material'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import ResourceList from '../ResourceList'
-import ResourcesContext from '@/components/ResourcesContext'
 import SendButton from './SendButton'
 import Step from '../Step'
 
@@ -15,8 +14,6 @@ export default function Resources() {
   const county = searchParams.get('county') as string
   const need = searchParams.get('need') as string
   // const urgency = searchParams.get('urgency') as string
-
-  const { resources } = useContext(ResourcesContext)
 
   const handleToggle = (valueToToggle: string) =>
     setSelected(current =>
