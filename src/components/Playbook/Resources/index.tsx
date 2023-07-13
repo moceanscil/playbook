@@ -46,11 +46,7 @@ export default function Resources() {
         )}
       />
 
-      <SendButton
-        selectedResourceIds={selected}
-        resources={resources}
-        onClick={handleClickSend}
-      />
+      <SendButton selectedResourceIds={selected} onClick={handleClickSend} />
     </Step>
   )
 }
