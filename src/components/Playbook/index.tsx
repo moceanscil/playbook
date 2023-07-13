@@ -4,7 +4,6 @@ import AreaOfNeed from './AreaOfNeed'
 import County from './County'
 import PlaybookContext from './PlaybookContext'
 import Resources from './Resources'
-import Start from './Start'
 import Urgency from './Urgency'
 
 const rootStyle = {
@@ -24,7 +23,6 @@ export default function Playbook({
       value={{ countyServedValues, resourceTypeValues }}
     >
       <div style={rootStyle}>
-        <Start />
         <County />
         <AreaOfNeed />
         <Urgency />

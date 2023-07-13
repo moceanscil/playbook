@@ -1,9 +1,16 @@
 import getAirtableMeta from '@/helpers/getAirtableMeta'
 import Playbook from '@/components/Playbook'
 
+const HARD_CODED_COUNTY_SERVED_VALUES = ['Monmouth', 'Ocean']
+
 export default async function Home() {
   const airtableMeta = await getAirtableMeta()
-  const countyServedValues = airtableMeta.countyServedValues
+
+  // We only serve Monmouth/Ocean counties, so we won't use "live" options from
+  // Airtable anymore. (Leaving the code here though in case that changes in the
+  // future.)
+  // const countyServedValues = airtableMeta.countyServedValues
+  const countyServedValues = HARD_CODED_COUNTY_SERVED_VALUES
   const resourceTypeValues = airtableMeta.resourceTypeValues
 
   return (

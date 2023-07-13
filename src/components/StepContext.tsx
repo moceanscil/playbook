@@ -2,30 +2,27 @@ import { ReactNode, createContext } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 const StepContext = createContext<{ currentStep: string; progress: number }>({
-  currentStep: 'Start',
+  currentStep: 'County',
   progress: 0,
 })
 export default StepContext
 
-const STEPS_IN_ORDER = ['Start', 'County', 'AreaOfNeed', 'Urgency', 'Resources']
+const STEPS_IN_ORDER = ['County', 'AreaOfNeed', 'Urgency', 'Resources']
 
 export function StepContextProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
-  const action = searchParams.get('action')
   const county = searchParams.get('county')
   const need = searchParams.get('need')
   const urgency = searchParams.get('urgency')
 
   const currentStep =
-    action === 'neighbor' && county && need && urgency
+    county && need && urgency
       ? 'Resources'
-      : action === 'neighbor' && county && need
+      : county && need
       ? 'Urgency'
-      : action === 'neighbor' && county
+      : county
       ? 'AreaOfNeed'
-      : action === 'neighbor'
-      ? 'County'
-      : 'Start'
+      : 'County'
 
   const progress = Math.round(
     (STEPS_IN_ORDER.indexOf(currentStep) / (STEPS_IN_ORDER.length - 1)) * 100

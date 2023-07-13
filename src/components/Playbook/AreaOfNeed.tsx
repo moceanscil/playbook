@@ -64,7 +64,6 @@ export default function AreaOfNeed() {
         variant="contained"
         disabled={selected.length === 0}
         query={{
-          action: 'neighbor',
           county,
           need: selected.join(','),
         }}
