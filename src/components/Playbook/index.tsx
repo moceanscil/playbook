@@ -4,7 +4,6 @@ import AreaOfNeed from './AreaOfNeed'
 import County from './County'
 import PlaybookContext from './PlaybookContext'
 import Resources from './Resources'
-import Urgency from './Urgency'
 
 const rootStyle = {
   display: 'grid',
@@ -25,7 +24,8 @@ export default function Playbook({
       <div style={rootStyle}>
         <County />
         <AreaOfNeed />
-        <Urgency />
+        {/* Commented out until we've decided what to do re: urgency options */}
+        {/* <Urgency /> */}
         <Resources />
       </div>
     </PlaybookContext.Provider>

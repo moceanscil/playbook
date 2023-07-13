@@ -13,14 +13,14 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
   const county = searchParams.get('county')
   const need = searchParams.get('need')
-  const urgency = searchParams.get('urgency')
+  // const urgency = searchParams.get('urgency')
 
   const currentStep =
-    county && need && urgency
+    county && need
       ? 'Resources'
-      : county && need
-      ? 'Urgency'
-      : county
+      : // : county && need
+      // ? 'Urgency'
+      county
       ? 'AreaOfNeed'
       : 'County'
 

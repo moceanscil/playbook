@@ -11,13 +11,13 @@ export default function useAirtableResources(
   const [resources, setResources] = useState<Resource[]>([])
 
   useEffect(() => {
-    if (!county || !resourceTypes || !urgency) return
+    if (!county || !resourceTypes /*|| !urgency*/) return
 
     setIsLoading(true)
     const searchParams = new URLSearchParams({
       county,
       resourceTypes,
-      urgency,
+      // urgency,
     })
     fetch(`/api/airtable/resources?${searchParams}`)
       .then(res => res.json())
