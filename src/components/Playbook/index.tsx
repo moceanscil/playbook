@@ -3,6 +3,7 @@
 import AreaOfNeed from './AreaOfNeed'
 import County from './County'
 import PlaybookContext from './PlaybookContext'
+import Report from './Report'
 import Resources from './Resources'
 
 const rootStyle = {
@@ -27,6 +28,7 @@ export default function Playbook({
         {/* Commented out until we've decided what to do re: urgency options */}
         {/* <Urgency /> */}
         <Resources />
+        <Report />
       </div>
     </PlaybookContext.Provider>
   )

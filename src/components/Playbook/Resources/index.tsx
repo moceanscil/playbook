@@ -7,7 +7,7 @@ import {
   SxProps,
 } from '@mui/material'
 import { Fragment, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import ContactInfo from './ContactInfo'
 import Eligibility from './Eligibility'
@@ -27,12 +27,13 @@ const styles: Record<string, SxProps> = {
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
   const searchParams = useSearchParams()
+  const router = useRouter()
 
-  const { isLoading, resources } = useAirtableResources(
-    searchParams.get('county') as string,
-    searchParams.get('need') as string,
-    searchParams.get('urgency') as string
-  )
+  const county = searchParams.get('county') as string
+  const need = searchParams.get('need') as string
+  const urgency = searchParams.get('urgency') as string
+
+  const { isLoading, resources } = useAirtableResources(county, need, urgency)
 
   const handleToggle = (valueToToggle: string) =>
     setSelected(current =>
@@ -42,6 +43,15 @@ export default function Resources() {
     )
 
   const isLastResource = (index: number) => index === resources.length - 1
+
+  const handleClickSend = () => {
+    const params = new URLSearchParams({
+      county,
+      need /* urgency, */,
+      resources: selected.join(','),
+    })
+    router.push(`/?${params}`)
+  }
 
   return (
     <Step title="Here are some resources for your neighbor." step="Resources">
@@ -82,7 +92,11 @@ export default function Resources() {
           ))}
       </List>
 
-      <SendButton selectedResourceIds={selected} resources={resources} />
+      <SendButton
+        selectedResourceIds={selected}
+        resources={resources}
+        onClick={handleClickSend}
+      />
     </Step>
   )
 }

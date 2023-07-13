@@ -7,16 +7,25 @@ const StepContext = createContext<{ currentStep: string; progress: number }>({
 })
 export default StepContext
 
-const STEPS_IN_ORDER = ['County', 'AreaOfNeed', 'Urgency', 'Resources']
+const STEPS_IN_ORDER = [
+  'County',
+  'AreaOfNeed',
+  'Urgency',
+  'Resources',
+  'Report',
+]
 
 export function StepContextProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
   const county = searchParams.get('county')
   const need = searchParams.get('need')
   // const urgency = searchParams.get('urgency')
+  const resources = searchParams.get('resources')
 
   const currentStep =
-    county && need
+    county && need && resources
+      ? 'Report'
+      : county && need
       ? 'Resources'
       : // : county && need
       // ? 'Urgency'

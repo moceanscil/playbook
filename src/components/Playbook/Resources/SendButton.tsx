@@ -47,9 +47,11 @@ const getEmailBody = (resourceIds: string[], resources: Resource[]): string =>
 export default function SendButton({
   selectedResourceIds,
   resources,
+  onClick,
 }: {
   selectedResourceIds: string[]
   resources: Resource[]
+  onClick: () => void
 }) {
   const emailBody = getEmailBody(selectedResourceIds, resources)
   const params = new URLSearchParams({
@@ -62,9 +64,11 @@ export default function SendButton({
       <Fab
         disabled={!selectedResourceIds.length}
         href={`mailto:?${toStringWithMailFriendlySpaces(params)}`}
+        target="_blank"
         variant="extended"
         sx={styles.button}
         color="primary"
+        onClick={onClick}
       >
         <Send sx={styles.icon} />
         Send
