@@ -38,7 +38,9 @@ export default function SendButton() {
 
   return (
     <Button
-      href={`mailto:?${toStringWithMailFriendlySpaces(params)}`}
+      href={`mailto:wali.mohammed@moceanscil.org?${toStringWithMailFriendlySpaces(
+        params
+      )}`}
       target="_blank"
       variant="contained"
       startIcon={<Send />}
