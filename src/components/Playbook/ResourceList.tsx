@@ -15,8 +15,10 @@ const styles: Record<string, SxProps> = {
 }
 
 export default function ResourceList({
+  renderTitleSuffix,
   renderSecondaryAction,
 }: {
+  renderTitleSuffix?: (resourceId: string) => ReactNode
   renderSecondaryAction?: (resourceId: string) => ReactNode
 }) {
   const { isLoading, resources } = useContext(ResourcesContext)
@@ -36,7 +38,12 @@ export default function ResourceList({
               }
             >
               <ListItemText
-                primary={resource['Name of Resource']}
+                primary={
+                  <>
+                    {resource['Name of Resource']}
+                    {renderTitleSuffix && renderTitleSuffix(resource.id)}
+                  </>
+                }
                 secondary={
                   <>
                     <ResourceTypes resourceTypes={resource['Resource Type']} />

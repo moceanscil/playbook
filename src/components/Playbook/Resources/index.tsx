@@ -1,4 +1,4 @@
-import { Checkbox, IconButton } from '@mui/material'
+import { Box, Checkbox, IconButton, SxProps } from '@mui/material'
 import { Edit as EditIcon } from '@mui/icons-material'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
@@ -7,6 +7,12 @@ import Edit from './Edit'
 import ResourceList from '../ResourceList'
 import SendButton from './SendButton'
 import Step from '../Step'
+
+const styles: Record<string, SxProps> = {
+  editButton: {
+    ml: 1,
+  },
+}
 
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
@@ -37,20 +43,22 @@ export default function Resources() {
   return (
     <Step title="Here are some resources for your neighbor." step="Resources">
       <ResourceList
+        renderTitleSuffix={resourceId => (
+          <IconButton
+            onClick={() => setEditResourceId(resourceId)}
+            aria-label="Edit this resource"
+            size="small"
+            sx={styles.editButton}
+          >
+            <EditIcon fontSize="small" />
+          </IconButton>
+        )}
         renderSecondaryAction={resourceId => (
-          <>
-            <IconButton
-              onClick={() => setEditResourceId(resourceId)}
-              aria-label="Edit this resource"
-            >
-              <EditIcon />
-            </IconButton>
-            <Checkbox
-              edge="end"
-              checked={selected.includes(resourceId)}
-              onChange={() => handleToggle(resourceId)}
-            />
-          </>
+          <Checkbox
+            edge="end"
+            checked={selected.includes(resourceId)}
+            onChange={() => handleToggle(resourceId)}
+          />
         )}
       />
 
