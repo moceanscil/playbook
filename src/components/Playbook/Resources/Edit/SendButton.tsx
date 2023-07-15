@@ -49,7 +49,7 @@ export default function SendButton({
       )}`}
       disabled={disabled}
     >
-      Send updates to MOCEANS
+      Send edits to MOCEANS
     </Button>
   )
 }
