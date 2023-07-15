@@ -18,7 +18,7 @@ const getChangedFieldsSummary = (
     if (fieldName === 'Anything else to update?') {
       summary += `- ${fieldName}: ${updatedResource[fieldName]}\n`
     } else {
-      summary += `- ${fieldName}: update to "${changedFields[fieldName].new}"\n`
+      summary += `- ${fieldName}: change to "${changedFields[fieldName].new}"\n`
     }
   }
 
