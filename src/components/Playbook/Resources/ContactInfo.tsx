@@ -1,5 +1,5 @@
 import { Box, Link, SxProps } from '@mui/material'
-import { Link as LinkIcon, LocationOn, Phone } from '@mui/icons-material'
+import { Link as LinkIcon, LocationOn, Mail, Phone } from '@mui/icons-material'
 
 import Resource from '@/types/Resource'
 
@@ -35,7 +35,7 @@ export default function ContactInfo({ resource }: { resource: Resource }) {
           rel="noreferrer"
           sx={styles.item}
         >
-          <LinkIcon />
+          <LinkIcon fontSize="small" />
 
           <Box sx={styles.websiteLink}>{resource['Website Link']}</Box>
         </Link>
@@ -43,8 +43,20 @@ export default function ContactInfo({ resource }: { resource: Resource }) {
 
       {resource.Phone && (
         <Link href={`tel:${resource.Phone}`} sx={styles.item}>
-          <Phone />
+          <Phone fontSize="small" />
           {resource.Phone}
+        </Link>
+      )}
+
+      {resource['Email Address'] && (
+        <Link
+          href={`mailto:${resource['Email Address']}`}
+          target="_blank"
+          rel="noreferrer"
+          sx={styles.item}
+        >
+          <Mail fontSize="small" />
+          {resource['Email Address']}
         </Link>
       )}
 
@@ -55,7 +67,7 @@ export default function ContactInfo({ resource }: { resource: Resource }) {
           rel="noreferrer"
           sx={styles.item}
         >
-          <LocationOn />
+          <LocationOn fontSize="small" />
           {resource.Address}
         </Link>
       )}
