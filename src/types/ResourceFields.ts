@@ -4,6 +4,7 @@ type ResourceFields = {
   'Program Summary': string
   'Website Link': string
   Phone?: string
+  'Email Address'?: string
   Address?: string
   Eligibility?: string
 }

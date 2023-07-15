@@ -37,6 +37,7 @@ export async function GET(request: Request) {
         'Program Summary',
         'Website Link',
         'Phone',
+        'Email Address',
         'Address',
         'Eligibility',
       ],

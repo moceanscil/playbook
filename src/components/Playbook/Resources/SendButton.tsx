@@ -34,6 +34,7 @@ const getResourceTextSummary = (resource: Resource): string => {
   if (resource['Website Link']) summary += '\n' + resource['Website Link']
   if (resource.Phone) summary += '\n' + resource.Phone
   if (resource.Address) summary += '\n' + resource.Address
+  if (resource['Email Address']) summary += '\n' + resource['Email Address']
 
   return summary
 }
