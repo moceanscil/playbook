@@ -1,13 +1,16 @@
-import { Checkbox } from '@mui/material'
+import { Checkbox, IconButton } from '@mui/material'
+import { Edit as EditIcon } from '@mui/icons-material'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
+import Edit from './Edit'
 import ResourceList from '../ResourceList'
 import SendButton from './SendButton'
 import Step from '../Step'
 
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
+  const [editResourceId, setEditResourceId] = useState<string | undefined>()
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -35,13 +38,28 @@ export default function Resources() {
     <Step title="Here are some resources for your neighbor." step="Resources">
       <ResourceList
         renderSecondaryAction={resourceId => (
-          <Checkbox
-            edge="end"
-            checked={selected.includes(resourceId)}
-            onChange={() => handleToggle(resourceId)}
-          />
+          <>
+            <IconButton
+              onClick={() => setEditResourceId(resourceId)}
+              aria-label="Edit this resource"
+            >
+              <EditIcon />
+            </IconButton>
+            <Checkbox
+              edge="end"
+              checked={selected.includes(resourceId)}
+              onChange={() => handleToggle(resourceId)}
+            />
+          </>
         )}
       />
+
+      {!!editResourceId && (
+        <Edit
+          resourceId={editResourceId}
+          onClose={() => setEditResourceId(undefined)}
+        />
+      )}
 
       <SendButton selectedResourceIds={selected} onClick={handleClickSend} />
     </Step>

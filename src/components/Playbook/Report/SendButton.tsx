@@ -5,9 +5,7 @@ import { useContext } from 'react'
 import formatTodaysDate from './helpers/formatTodaysDate'
 import Resource from '@/types/Resource'
 import ResourcesContext from '@/components/ResourcesContext'
-
-const toStringWithMailFriendlySpaces = (params: URLSearchParams) =>
-  params.toString().replaceAll('+', '%20')
+import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
 
 const getEmailBody = (resources: Resource[]): string => {
   const resourceNames = resources

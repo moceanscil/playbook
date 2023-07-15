@@ -4,9 +4,7 @@ import { useContext } from 'react'
 
 import Resource from '@/types/Resource'
 import ResourcesContext from '@/components/ResourcesContext'
-
-const toStringWithMailFriendlySpaces = (params: URLSearchParams) =>
-  params.toString().replaceAll('+', '%20')
+import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
 
 const styles: Record<string, SxProps> = {
   button: {
