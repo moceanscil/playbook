@@ -3,6 +3,7 @@ import { Send } from '@mui/icons-material'
 import { useContext } from 'react'
 
 import formatTodaysDate from './helpers/formatTodaysDate'
+import { MAILTO_EMAIL_ADDRESS } from '@/constants'
 import Resource from '@/types/Resource'
 import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
 import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
@@ -36,7 +37,7 @@ export default function SendButton() {
 
   return (
     <Button
-      href={`mailto:wali.mohammed@moceanscil.org?${toStringWithMailFriendlySpaces(
+      href={`mailto:${MAILTO_EMAIL_ADDRESS}?${toStringWithMailFriendlySpaces(
         params
       )}`}
       target="_blank"

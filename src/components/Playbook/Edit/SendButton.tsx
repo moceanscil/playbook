@@ -2,6 +2,7 @@ import { Button } from '@mui/material'
 import { Send } from '@mui/icons-material'
 
 import getChangedFields from './helpers/getChangedFields'
+import { MAILTO_EMAIL_ADDRESS } from '@/constants'
 import Resource from '@/types/Resource'
 import ResourceWithUpdateNotes from '@/types/ResourceWithUpdateNotes'
 import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
@@ -44,7 +45,7 @@ export default function SendButton({
     <Button
       startIcon={<Send />}
       variant="contained"
-      href={`mailto:wali.mohammed@moceanscil.org?${toStringWithMailFriendlySpaces(
+      href={`mailto:${MAILTO_EMAIL_ADDRESS}?${toStringWithMailFriendlySpaces(
         params
       )}`}
       target="_blank"
