@@ -3,8 +3,10 @@ import { Edit as EditIcon } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
 import { useContext, useState } from 'react'
 
-import Edit from './Edit'
+import Edit from '../../Edit'
+import Resource from '@/types/Resource'
 import ResourceList from '../ResourceList'
+import ResourcesContext from '../ResourcesContext'
 import SendButton from './SendButton'
 import Step from '../../Step'
 import StepContext from '@/components/StepContext'
@@ -17,9 +19,14 @@ const styles: Record<string, SxProps> = {
 
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
-  const [editResourceId, setEditResourceId] = useState<string | undefined>()
+  const { resources } = useContext(ResourcesContext)
+  const [resourceIdToEdit, setResourceIdToEdit] = useState<string | undefined>()
   const router = useRouter()
   const { getHrefWithQueryParams } = useContext(StepContext)
+
+  const resourceToEdit: Resource | undefined = resourceIdToEdit
+    ? resources.find(resource => resource.id === resourceIdToEdit)
+    : undefined
 
   const handleToggle = (valueToToggle: string) =>
     setSelected(current =>
@@ -37,7 +44,7 @@ export default function Resources() {
       <ResourceList
         renderTitleSuffix={resourceId => (
           <IconButton
-            onClick={() => setEditResourceId(resourceId)}
+            onClick={() => setResourceIdToEdit(resourceId)}
             aria-label="Edit this resource"
             size="small"
             sx={styles.editButton}
@@ -54,10 +61,10 @@ export default function Resources() {
         )}
       />
 
-      {!!editResourceId && (
+      {!!resourceToEdit && (
         <Edit
-          resourceId={editResourceId}
-          onClose={() => setEditResourceId(undefined)}
+          resource={resourceToEdit}
+          onClose={() => setResourceIdToEdit(undefined)}
         />
       )}
 
