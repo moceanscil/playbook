@@ -52,6 +52,7 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
   if (need) currentStep = 'Eligibility'
   if (eligibility !== null) currentStep = 'Resources'
   if (resources) currentStep = 'Report'
+  if (action === 'update') currentStep = 'Update'
 
   const getHrefWithQueryParams = (params: Record<string, string>) => {
     const paramsToMerge: Record<string, string> = {}

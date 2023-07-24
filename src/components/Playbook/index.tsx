@@ -8,6 +8,7 @@ import Report from './help/Report'
 import Resources from './help/Resources'
 import { ResourcesContextProvider } from './help/ResourcesContext'
 import Start from './Start'
+import Update from './update/Update'
 
 const rootStyle = {
   display: 'grid',
@@ -35,6 +36,7 @@ export default function Playbook({
           <Eligibility />
           <Resources />
           <Report />
+          <Update />
         </div>
       </ResourcesContextProvider>
     </PlaybookContext.Provider>
