@@ -69,7 +69,7 @@ export default function Edit({
   return (
     <Dialog open onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Edit this resource</DialogTitle>
-      <DialogContent sx={styles.dialogContent}>
+      <DialogContent>
         <EditableField
           field="Name of Resource"
           resource={updatedResource}
