@@ -11,7 +11,6 @@ const STEPS_IN_ORDER = [
   'Start',
   'County',
   'AreaOfNeed',
-  'Urgency',
   'Eligibility',
   'Resources',
   'Report',
@@ -22,7 +21,6 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
   const action = searchParams.get('action')
   const county = searchParams.get('county')
   const need = searchParams.get('need')
-  // const urgency = searchParams.get('urgency')
   const eligibility = searchParams.get('eligibility')
   const resources = searchParams.get('resources')
 
@@ -33,9 +31,7 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
       ? 'Resources'
       : action === 'neighbor' && county && need
       ? 'Eligibility'
-      : // : county && need
-      // ? 'Urgency'
-      action === 'neighbor' && county
+      : action === 'neighbor' && county
       ? 'AreaOfNeed'
       : action === 'neighbor'
       ? 'County'
