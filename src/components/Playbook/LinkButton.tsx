@@ -1,6 +1,8 @@
 import { Button, SxProps } from '@mui/material'
 import Link from 'next/link'
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
+
+import StepContext from '../StepContext'
 
 export default function LinkButton({
   query,
@@ -17,6 +19,8 @@ export default function LinkButton({
   startIcon?: ReactNode
   variant?: 'contained'
 }) {
+  const { getHrefWithQueryParams } = useContext(StepContext)
+
   return (
     <Button
       variant={variant}
@@ -25,7 +29,7 @@ export default function LinkButton({
       sx={sx}
       disabled={disabled}
       LinkComponent={Link}
-      href={`?${new URLSearchParams(query)}`}
+      href={getHrefWithQueryParams(query)}
     >
       {children}
     </Button>
