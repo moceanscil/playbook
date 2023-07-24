@@ -47,6 +47,8 @@ export default function SendButton({
       href={`mailto:wali.mohammed@moceanscil.org?${toStringWithMailFriendlySpaces(
         params
       )}`}
+      target="_blank"
+      rel="noreferrer"
       disabled={disabled}
     >
       Send edits to MOCEANS
