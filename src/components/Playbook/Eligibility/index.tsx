@@ -7,11 +7,12 @@ import {
   Checkbox,
   ListItemText,
 } from '@mui/material'
+import { useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+
 import LinkButton from '../LinkButton'
 import Step from '../Step'
 import useResourcesWithEligibility from './useResourcesWithEligibility'
-import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 
 export default function Eligibility() {
   const { isLoading, resources } = useResourcesWithEligibility()
