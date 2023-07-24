@@ -1,6 +1,7 @@
 import { ReactNode, createContext } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+import Action from '@/types/Action'
 import Step from '@/types/Step'
 
 const StepContext = createContext<{
@@ -26,19 +27,27 @@ const StepContext = createContext<{
 })
 export default StepContext
 
-const STEPS_IN_ORDER: Step[] = [
-  'Start',
-  'County',
-  'AreaOfNeed',
-  'Eligibility',
-  'Resources',
-  'Report',
-]
+const STEPS_IN_ORDER_BY_ACTION: Record<Action, Step[]> = {
+  neighbor: [
+    'Start',
+    'County',
+    'AreaOfNeed',
+    'Eligibility',
+    'Resources',
+    'Report',
+  ],
+  update: ['Start', 'Update'],
+}
+
+const isValidAction = (action: string | null): action is Action =>
+  action === 'neighbor' || action === 'update'
 
 export function StepContextProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
 
   const action = searchParams.get('action')
+  if (action && !isValidAction(action)) throw new Error('invalid_action')
+
   const county = searchParams.get('county')
   const need = searchParams.get('need')
   const eligibility = searchParams.get('eligibility')
@@ -68,9 +77,16 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
     )
   }
 
-  const progress = Math.round(
-    (STEPS_IN_ORDER.indexOf(currentStep) / (STEPS_IN_ORDER.length - 1)) * 100
-  )
+  let progress: number
+  if (isValidAction(action)) {
+    const currentStepIndex =
+      STEPS_IN_ORDER_BY_ACTION[action].indexOf(currentStep)
+    const lastStepIndex = STEPS_IN_ORDER_BY_ACTION[action].length - 1
+
+    progress = Math.round((currentStepIndex / lastStepIndex) * 100)
+  } else {
+    progress = 0
+  }
 
   return (
     <StepContext.Provider

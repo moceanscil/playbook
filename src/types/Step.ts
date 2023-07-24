@@ -1,9 +1,10 @@
 type Step =
-  | 'Start'
-  | 'County'
   | 'AreaOfNeed'
+  | 'County'
   | 'Eligibility'
-  | 'Resources'
   | 'Report'
+  | 'Resources'
+  | 'Start'
+  | 'Update'
 
 export default Step
