@@ -17,14 +17,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const county = searchParams.get('county')
   const resourceTypes = searchParams.get('resourceTypes')?.split(',')
-  // const urgency = searchParams.get('urgency')
 
   if (!county)
     return NextResponse.json({ error: 'missing_county' }, { status: 400 })
   if (!resourceTypes || !resourceTypes.length)
     return NextResponse.json({ error: 'missing_need' }, { status: 400 })
-  // if (!urgency)
-  //   return NextResponse.json({ error: 'missing_urgency' }, { status: 400 })
 
   const resourcesResult = await base<ResourceFields>(
     process.env.AIRTABLE_TABLE_ID as string
