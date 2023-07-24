@@ -5,12 +5,11 @@ import {
   SxProps,
   TextField,
 } from '@mui/material'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import getChangedFields from './helpers/getChangedFields'
 import getMergedSx from '@/helpers/getMergedSx'
 import Resource from '@/types/Resource'
-import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
 import ResourceWithUpdateNotes from '@/types/ResourceWithUpdateNotes'
 import SendButton from './SendButton'
 
@@ -55,7 +54,6 @@ export default function Edit({
   resource: Resource
   onClose: () => void
 }) {
-  const { resources } = useContext(ResourcesContext)
   const [updatedResource, setUpdatedResource] =
     useState<ResourceWithUpdateNotes>(resource)
   const changedFields = getChangedFields(resource, updatedResource)
