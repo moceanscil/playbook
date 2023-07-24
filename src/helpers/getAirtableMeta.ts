@@ -1,4 +1,5 @@
 import assertEnvVarsSet from '@/helpers/assertEnvVarsSet'
+import { FETCH_NO_CACHE } from '@/constants'
 
 assertEnvVarsSet()
 
@@ -27,11 +28,7 @@ export default async function getAirtableMeta() {
     `https://api.airtable.com/v0/meta/bases/${process.env.AIRTABLE_BASE_ID}/tables`,
     {
       headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` },
-
-      // Make sure we're getting fresh data each time. Otherwise, this will
-      // store stale Airtable data until the next Vercel deploy.  @see
-      // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching#static-data-fetching
-      cache: 'no-store',
+      ...FETCH_NO_CACHE,
     }
   )
 
