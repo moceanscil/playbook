@@ -53,6 +53,8 @@ export default function SendButton({
   onClick: () => void
 }) {
   const { resources } = useContext(ResourcesContext)
+  if (!resources.length) return null
+
   const emailBody = getEmailBody(selectedResourceIds, resources)
   const params = new URLSearchParams({
     subject: 'Some helpful resources for you',
