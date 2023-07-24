@@ -72,6 +72,7 @@ export default function Eligibility() {
       <LinkButton
         variant="contained"
         query={{
+          action: 'neighbor',
           county,
           need,
           eligibility: selected.join(','),

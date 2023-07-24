@@ -20,6 +20,7 @@ export default function Urgency() {
         <LinkButton
           key={urgency.value}
           query={{
+            action: 'neighbor',
             county,
             need,
             urgency: urgency.value.toString(),

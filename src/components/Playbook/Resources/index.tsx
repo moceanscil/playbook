@@ -34,6 +34,7 @@ export default function Resources() {
 
   const handleClickSend = () => {
     const params = new URLSearchParams({
+      action: 'neighbor',
       county,
       need,
       eligibility,

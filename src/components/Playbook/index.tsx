@@ -7,6 +7,7 @@ import PlaybookContext from './PlaybookContext'
 import Report from './Report'
 import Resources from './Resources'
 import { ResourcesContextProvider } from '../ResourcesContext'
+import Start from './Start'
 
 const rootStyle = {
   display: 'grid',
@@ -26,6 +27,7 @@ export default function Playbook({
     >
       <ResourcesContextProvider>
         <div style={rootStyle}>
+          <Start />
           <County />
           <AreaOfNeed />
           {/* Commented out until we've decided what to do re: urgency options */}

@@ -10,7 +10,7 @@ export default function County() {
   return (
     <Step title="Which county are you helping a neighbor in?" step="County">
       {countyServedValues.map(county => (
-        <LinkButton query={{ county }} key={county}>
+        <LinkButton query={{ action: 'neighbor', county }} key={county}>
           {county}
         </LinkButton>
       ))}
