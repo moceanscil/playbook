@@ -61,6 +61,12 @@ const styles: Record<string, SxProps> = {
     backgroundColor: 'white',
     textAlign: 'center',
   },
+  container: {
+    minHeight: '100%',
+    display: 'grid',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+  },
   scrollContainer: {
     overflow: 'auto',
     height: '100%',
@@ -98,7 +104,7 @@ export default function RootLayout({
             </AppBar>
 
             <Box sx={styles.scrollContainer}>
-              <Container maxWidth="md" component="main">
+              <Container maxWidth="md" component="main" sx={styles.container}>
                 {children}
               </Container>
             </Box>

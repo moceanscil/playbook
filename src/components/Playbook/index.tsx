@@ -13,6 +13,7 @@ import Update from './update/Update'
 const rootStyle = {
   display: 'grid',
   gridTemplateAreas: '"main"',
+  minHeight: '100%',
 }
 
 export default function Playbook({
