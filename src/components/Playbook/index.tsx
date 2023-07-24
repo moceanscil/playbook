@@ -2,6 +2,7 @@
 
 import AreaOfNeed from './AreaOfNeed'
 import County from './County'
+import Eligibility from './Eligibility'
 import PlaybookContext from './PlaybookContext'
 import Report from './Report'
 import Resources from './Resources'
@@ -29,6 +30,7 @@ export default function Playbook({
           <AreaOfNeed />
           {/* Commented out until we've decided what to do re: urgency options */}
           {/* <Urgency /> */}
+          <Eligibility />
           <Resources />
           <Report />
         </div>

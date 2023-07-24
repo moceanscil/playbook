@@ -11,7 +11,12 @@ export default function useAirtableResources(
   const [resources, setResources] = useState<Resource[]>([])
 
   useEffect(() => {
-    if (!county || !resourceTypes /*|| !urgency*/) return
+    if (!county || !resourceTypes /*|| !urgency*/) {
+      // Reset the list so it doesn't mistakenly cache a list from a previous
+      // API call.
+      setResources([])
+      return
+    }
 
     setIsLoading(true)
     const searchParams = new URLSearchParams({

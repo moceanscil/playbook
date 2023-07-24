@@ -11,6 +11,7 @@ const STEPS_IN_ORDER = [
   'County',
   'AreaOfNeed',
   'Urgency',
+  'Eligibility',
   'Resources',
   'Report',
 ]
@@ -20,13 +21,16 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
   const county = searchParams.get('county')
   const need = searchParams.get('need')
   // const urgency = searchParams.get('urgency')
+  const eligibility = searchParams.get('eligibility')
   const resources = searchParams.get('resources')
 
   const currentStep =
-    county && need && resources
+    county && need && eligibility !== null && resources
       ? 'Report'
-      : county && need
+      : county && need && eligibility !== null
       ? 'Resources'
+      : county && need
+      ? 'Eligibility'
       : // : county && need
       // ? 'Urgency'
       county

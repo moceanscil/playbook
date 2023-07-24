@@ -22,6 +22,7 @@ export default function Resources() {
 
   const county = searchParams.get('county') as string
   const need = searchParams.get('need') as string
+  const eligibility = searchParams.get('eligibility') as string
   // const urgency = searchParams.get('urgency') as string
 
   const handleToggle = (valueToToggle: string) =>
@@ -34,7 +35,9 @@ export default function Resources() {
   const handleClickSend = () => {
     const params = new URLSearchParams({
       county,
-      need /* urgency, */,
+      need,
+      eligibility,
+      /* urgency, */
       resources: selected.join(','),
     })
     router.push(`/?${params}`)
