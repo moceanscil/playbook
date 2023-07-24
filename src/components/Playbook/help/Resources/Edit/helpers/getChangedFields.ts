@@ -1,5 +1,5 @@
 import Resource from '@/types/Resource'
-import ResourceWithUpdateNotes from '../ResourceWithUpdateNotes'
+import ResourceWithUpdateNotes from '@/types/ResourceWithUpdateNotes'
 
 export default function getChangedFields(
   resource: Resource,

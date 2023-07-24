@@ -3,7 +3,7 @@ import { Send } from '@mui/icons-material'
 
 import getChangedFields from './helpers/getChangedFields'
 import Resource from '@/types/Resource'
-import ResourceWithUpdateNotes from './ResourceWithUpdateNotes'
+import ResourceWithUpdateNotes from '@/types/ResourceWithUpdateNotes'
 import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
 
 const getChangedFieldsSummary = (
