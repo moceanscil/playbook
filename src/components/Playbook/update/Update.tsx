@@ -1,10 +1,10 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { Edit, Search } from '@mui/icons-material'
+import { IconButton, InputAdornment, SxProps, TextField } from '@mui/material'
+import { useState } from 'react'
 
 import Step from '../Step'
 import useAirtableResources from './useAirtableResources'
-import { IconButton, InputAdornment, SxProps, TextField } from '@mui/material'
-import { Check, Edit, Search } from '@mui/icons-material'
-import { useState } from 'react'
 
 const COLUMNS: GridColDef[] = [
   {
