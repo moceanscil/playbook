@@ -111,15 +111,14 @@ export default function Update() {
           }}
         />
 
-        {!isLoading && (
-          <DataGrid
-            sortModel={[{ field: 'Name of Resource', sort: 'asc' }]}
-            columns={COLUMNS}
-            rows={filteredResources}
-            sx={styles.dataGrid}
-            disableColumnMenu
-          />
-        )}
+        <DataGrid
+          sortModel={[{ field: 'Name of Resource', sort: 'asc' }]}
+          columns={COLUMNS}
+          rows={filteredResources}
+          sx={styles.dataGrid}
+          loading={isLoading}
+          disableColumnMenu
+        />
       </Step>
     </EditContext.Provider>
   )
