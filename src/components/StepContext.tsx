@@ -28,19 +28,12 @@ const StepContext = createContext<{
 export default StepContext
 
 const STEPS_IN_ORDER_BY_ACTION: Record<Action, Step[]> = {
-  neighbor: [
-    'Start',
-    'County',
-    'AreaOfNeed',
-    'Eligibility',
-    'Resources',
-    'Report',
-  ],
+  help: ['Start', 'County', 'AreaOfNeed', 'Eligibility', 'Resources', 'Report'],
   update: ['Start', 'Update'],
 }
 
 const isValidAction = (action: string | null): action is Action =>
-  action === 'neighbor' || action === 'update'
+  action === 'help' || action === 'update'
 
 export function StepContextProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
@@ -54,7 +47,7 @@ export function StepContextProvider({ children }: { children: ReactNode }) {
   const resources = searchParams.get('resources')
 
   let currentStep: Step = 'Start'
-  if (action === 'neighbor') currentStep = 'County'
+  if (action === 'help') currentStep = 'County'
   if (county) currentStep = 'AreaOfNeed'
   if (need) currentStep = 'Eligibility'
   if (eligibility !== null) currentStep = 'Resources'

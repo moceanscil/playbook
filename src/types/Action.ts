@@ -1,2 +1,2 @@
-type Action = 'neighbor' | 'update'
+type Action = 'help' | 'update'
 export default Action
