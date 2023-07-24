@@ -1,13 +1,15 @@
 import { ReactNode, createContext } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-const StepContext = createContext<{ currentStep: string; progress: number }>({
+import Step from '@/types/Step'
+
+const StepContext = createContext<{ currentStep: Step; progress: number }>({
   currentStep: 'Start',
   progress: 0,
 })
 export default StepContext
 
-const STEPS_IN_ORDER = [
+const STEPS_IN_ORDER: Step[] = [
   'Start',
   'County',
   'AreaOfNeed',
@@ -18,24 +20,13 @@ const STEPS_IN_ORDER = [
 
 export function StepContextProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams()
-  const action = searchParams.get('action')
-  const county = searchParams.get('county')
-  const need = searchParams.get('need')
-  const eligibility = searchParams.get('eligibility')
-  const resources = searchParams.get('resources')
 
-  const currentStep =
-    action === 'neighbor' && county && need && eligibility !== null && resources
-      ? 'Report'
-      : action === 'neighbor' && county && need && eligibility !== null
-      ? 'Resources'
-      : action === 'neighbor' && county && need
-      ? 'Eligibility'
-      : action === 'neighbor' && county
-      ? 'AreaOfNeed'
-      : action === 'neighbor'
-      ? 'County'
-      : 'Start'
+  let currentStep: Step = 'Start'
+  if (searchParams.get('action') === 'neighbor') currentStep = 'County'
+  if (searchParams.get('county')) currentStep = 'AreaOfNeed'
+  if (searchParams.get('need')) currentStep = 'Eligibility'
+  if (searchParams.get('eligibility') !== null) currentStep = 'Resources'
+  if (searchParams.get('resources')) currentStep = 'Report'
 
   const progress = Math.round(
     (STEPS_IN_ORDER.indexOf(currentStep) / (STEPS_IN_ORDER.length - 1)) * 100
