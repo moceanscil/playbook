@@ -1,12 +1,13 @@
-import { Box, Checkbox, IconButton, SxProps } from '@mui/material'
+import { Checkbox, IconButton, SxProps } from '@mui/material'
 import { Edit as EditIcon } from '@mui/icons-material'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useContext, useState } from 'react'
 
 import Edit from './Edit'
 import ResourceList from '../ResourceList'
 import SendButton from './SendButton'
 import Step from '../Step'
+import StepContext from '@/components/StepContext'
 
 const styles: Record<string, SxProps> = {
   editButton: {
@@ -17,13 +18,8 @@ const styles: Record<string, SxProps> = {
 export default function Resources() {
   const [selected, setSelected] = useState<string[]>([])
   const [editResourceId, setEditResourceId] = useState<string | undefined>()
-  const searchParams = useSearchParams()
   const router = useRouter()
-
-  const county = searchParams.get('county') as string
-  const need = searchParams.get('need') as string
-  const eligibility = searchParams.get('eligibility') as string
-  // const urgency = searchParams.get('urgency') as string
+  const { getHrefWithQueryParams } = useContext(StepContext)
 
   const handleToggle = (valueToToggle: string) =>
     setSelected(current =>
@@ -33,15 +29,7 @@ export default function Resources() {
     )
 
   const handleClickSend = () => {
-    const params = new URLSearchParams({
-      action: 'neighbor',
-      county,
-      need,
-      eligibility,
-      /* urgency, */
-      resources: selected.join(','),
-    })
-    router.push(`/?${params}`)
+    router.push(getHrefWithQueryParams({ resources: selected.join(',') }))
   }
 
   return (

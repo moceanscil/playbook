@@ -8,7 +8,6 @@ import {
   ListItemText,
 } from '@mui/material'
 import { useContext, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 
 import LinkButton from './LinkButton'
 import Step from './Step'
@@ -17,9 +16,6 @@ import PlaybookContext from './PlaybookContext'
 export default function AreaOfNeed() {
   const [selected, setSelected] = useState<string[]>([])
   const { resourceTypeValues } = useContext(PlaybookContext)
-
-  const searchParams = useSearchParams()
-  const county = searchParams.get('county') as string
 
   const handleToggle = (valueToToggle: string) =>
     setSelected(current =>
@@ -63,11 +59,7 @@ export default function AreaOfNeed() {
       <LinkButton
         variant="contained"
         disabled={selected.length === 0}
-        query={{
-          action: 'neighbor',
-          county,
-          need: selected.join(','),
-        }}
+        query={{ need: selected.join(',') }}
         startIcon={<ArrowForward />}
       >
         Continue

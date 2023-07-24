@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
 
 import Resource from '@/types/Resource'
@@ -12,11 +12,8 @@ const filterForResourcesWithEligibility = (
 
 export default function useResourcesWithEligibility() {
   const router = useRouter()
-  const params = useSearchParams()
-  const county = params.get('county') as string
-  const need = params.get('need') as string
 
-  const { currentStep } = useContext(StepContext)
+  const { currentStep, getHrefWithQueryParams } = useContext(StepContext)
   const { isLoading, resources } = useContext(ResourcesContext)
 
   const resourcesWithEligibility: ResourceWithEligibility[] = resources.filter(
@@ -34,19 +31,15 @@ export default function useResourcesWithEligibility() {
       // browser's back button doesn't come back here and immediately push the
       // next route again.
       router.replace(
-        `/?${new URLSearchParams({
-          county,
-          need,
-          /* urgency, */
+        getHrefWithQueryParams({
           eligibility: '',
-        })}`
+        })
       )
     }
   }, [
     router,
     currentStep,
-    county,
-    need,
+    getHrefWithQueryParams,
     resources,
     isLoading,
     resourcesWithEligibility,

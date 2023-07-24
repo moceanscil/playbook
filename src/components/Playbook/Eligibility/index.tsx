@@ -72,12 +72,7 @@ export default function Eligibility() {
 
       <LinkButton
         variant="contained"
-        query={{
-          action: 'neighbor',
-          county,
-          need,
-          eligibility: selected.join(','),
-        }}
+        query={{ eligibility: selected.join(',') }}
         startIcon={<ArrowForward />}
       >
         Continue

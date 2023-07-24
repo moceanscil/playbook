@@ -5,7 +5,19 @@ import Step from '@/types/Step'
 
 const StepContext = createContext<{
   currentStep: Step
+
+  /**
+   * A decimal from 0 to 1, indicating the user's progress through the Playbook.
+   */
   progress: number
+
+  /**
+   * A helper for getting an href attribute for a link (or `router.push()`
+   * call). Pass it the query param that you want to add/update in the URL, and
+   * it will merge that into all the other existing query params, so that you
+   * don't have to manually add all the different steps' query params every time
+   * you want to create a link.
+   */
   getHrefWithQueryParams: (params: Record<string, string>) => string
 }>({
   currentStep: 'Start',
