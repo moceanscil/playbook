@@ -30,10 +30,12 @@ export default function SendButton({
   resource,
   updatedResource,
   disabled,
+  onClick,
 }: {
   resource: Resource
   updatedResource: ResourceWithUpdateNotes
   disabled: boolean
+  onClick: () => void
 }) {
   const body = getChangedFieldsSummary(resource, updatedResource)
   const params = new URLSearchParams({
@@ -51,6 +53,7 @@ export default function SendButton({
       target="_blank"
       rel="noreferrer"
       disabled={disabled}
+      onClick={onClick}
     >
       Send edits to MOCEANS
     </Button>
