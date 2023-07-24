@@ -1,5 +1,5 @@
-import LinkButton from './LinkButton'
-import Step from './Step'
+import LinkButton from '../LinkButton'
+import Step from '../Step'
 
 const URGENCY_LEVELS = [
   { label: 'Within 6 hours', value: 6 },

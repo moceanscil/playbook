@@ -5,8 +5,8 @@ import { useContext } from 'react'
 import formatTodaysDate from './helpers/formatTodaysDate'
 import ResourceList from '../ResourceList'
 import SendButton from './SendButton'
-import Step from '../Step'
-import StepContext from '../../StepContext'
+import Step from '../../Step'
+import StepContext from '../../../StepContext'
 
 const styles: Record<string, SxProps> = {
   date: {

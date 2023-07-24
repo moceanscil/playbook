@@ -4,7 +4,7 @@ import { useContext } from 'react'
 
 import formatTodaysDate from './helpers/formatTodaysDate'
 import Resource from '@/types/Resource'
-import ResourcesContext from '@/components/ResourcesContext'
+import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
 import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
 
 const getEmailBody = (resources: Resource[]): string => {

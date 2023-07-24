@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
 
 import Resource from '@/types/Resource'
-import ResourcesContext from '@/components/ResourcesContext'
+import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
 import ResourceWithEligibility from '@/types/ResourceWithEligibility'
 import StepContext from '@/components/StepContext'
 

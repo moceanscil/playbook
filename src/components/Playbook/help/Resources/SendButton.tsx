@@ -3,7 +3,7 @@ import { Send } from '@mui/icons-material'
 import { useContext } from 'react'
 
 import Resource from '@/types/Resource'
-import ResourcesContext from '@/components/ResourcesContext'
+import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
 import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
 
 const styles: Record<string, SxProps> = {

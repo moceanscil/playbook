@@ -10,8 +10,8 @@ import {
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
-import LinkButton from '../LinkButton'
-import Step from '../Step'
+import LinkButton from '../../LinkButton'
+import Step from '../../Step'
 import useResourcesWithEligibility from './useResourcesWithEligibility'
 
 export default function Eligibility() {

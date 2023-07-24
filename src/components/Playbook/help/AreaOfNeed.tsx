@@ -9,8 +9,8 @@ import {
 } from '@mui/material'
 import { useContext, useState } from 'react'
 
-import LinkButton from './LinkButton'
-import Step from './Step'
+import LinkButton from '../LinkButton'
+import Step from '../Step'
 import PlaybookContext from './PlaybookContext'
 
 export default function AreaOfNeed() {

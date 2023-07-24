@@ -9,7 +9,7 @@ import { useContext, useState } from 'react'
 
 import getMergedSx from '@/helpers/getMergedSx'
 import Resource from '@/types/Resource'
-import ResourcesContext from '@/components/ResourcesContext'
+import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
 import ResourceWithUpdateNotes from './ResourceWithUpdateNotes'
 import SendButton from './SendButton'
 import getChangedFields from './helpers/getChangedFields'

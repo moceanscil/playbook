@@ -6,7 +6,7 @@ import { useContext, useState } from 'react'
 import Edit from './Edit'
 import ResourceList from '../ResourceList'
 import SendButton from './SendButton'
-import Step from '../Step'
+import Step from '../../Step'
 import StepContext from '@/components/StepContext'
 
 const styles: Record<string, SxProps> = {

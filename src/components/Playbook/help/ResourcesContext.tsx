@@ -2,7 +2,7 @@ import { createContext, ReactNode } from 'react'
 
 import Resource from '@/types/Resource'
 import { useSearchParams } from 'next/navigation'
-import useAirtableResources from './Playbook/Resources/useAirtableResources'
+import useAirtableResources from './useAirtableResources'
 
 const ResourcesContext = createContext<{
   isLoading: boolean

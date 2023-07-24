@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 
-import LinkButton from './LinkButton'
+import LinkButton from '../LinkButton'
 import PlaybookContext from './PlaybookContext'
-import Step from './Step'
+import Step from '../Step'
 
 export default function County() {
   const { countyServedValues } = useContext(PlaybookContext)

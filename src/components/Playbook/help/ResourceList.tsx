@@ -5,7 +5,7 @@ import ContactInfo from './Resources/ContactInfo'
 import Eligibility from './Resources/Eligibility'
 import ResourceTypes from './Resources/ResourceTypes'
 import ResourcesLoading from './Resources/ResourcesLoading'
-import ResourcesContext from '../ResourcesContext'
+import ResourcesContext from './ResourcesContext'
 
 const styles: Record<string, SxProps> = {
   list: {

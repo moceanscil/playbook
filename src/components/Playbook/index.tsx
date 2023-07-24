@@ -1,12 +1,12 @@
 'use client'
 
-import AreaOfNeed from './AreaOfNeed'
-import County from './County'
-import Eligibility from './Eligibility'
-import PlaybookContext from './PlaybookContext'
-import Report from './Report'
-import Resources from './Resources'
-import { ResourcesContextProvider } from '../ResourcesContext'
+import AreaOfNeed from './help/AreaOfNeed'
+import County from './help/County'
+import Eligibility from './help/Eligibility'
+import PlaybookContext from './help/PlaybookContext'
+import Report from './help/Report'
+import Resources from './help/Resources'
+import { ResourcesContextProvider } from './help/ResourcesContext'
 import Start from './Start'
 
 const rootStyle = {
