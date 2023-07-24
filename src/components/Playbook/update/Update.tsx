@@ -1,8 +1,12 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { Edit, Search } from '@mui/icons-material'
-import { IconButton, InputAdornment, SxProps, TextField } from '@mui/material'
+import { InputAdornment, SxProps, TextField } from '@mui/material'
+import { Search } from '@mui/icons-material'
 import { useState } from 'react'
 
+import Edit from '../Edit'
+import EditButton from './EditButton'
+import EditContext from './EditContext'
+import Resource from '@/types/Resource'
 import Step from '../Step'
 import useAirtableResources from './useAirtableResources'
 
@@ -11,9 +15,7 @@ const COLUMNS: GridColDef[] = [
     field: 'actions',
     type: 'actions',
     getActions: params => [
-      <IconButton key="edit" onClick={() => console.log(params)}>
-        <Edit />
-      </IconButton>,
+      <EditButton key="edit" resourceId={params.id as string} />,
     ],
   },
   {
@@ -63,7 +65,12 @@ const styles: Record<string, SxProps> = {
 
 export default function Update() {
   const [nameSearch, setNameSearch] = useState('')
+  const [resourceIdToEdit, setResourceIdToEdit] = useState<string | undefined>()
   const { isLoading, resources } = useAirtableResources()
+
+  const resourceToEdit: Resource | undefined = resourceIdToEdit
+    ? resources.find(resource => resource.id === resourceIdToEdit)
+    : undefined
 
   let filteredResources = resources
   if (nameSearch) {
@@ -75,31 +82,45 @@ export default function Update() {
   }
 
   return (
-    <Step title="Update a resource" step="Update">
-      <TextField
-        label="Filter by name"
-        sx={styles.textField}
-        variant="standard"
-        value={nameSearch}
-        onChange={e => setNameSearch(e.target.value.trim())}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          ),
-        }}
-      />
-
-      {!isLoading && (
-        <DataGrid
-          sortModel={[{ field: 'Name of Resource', sort: 'asc' }]}
-          columns={COLUMNS}
-          rows={filteredResources}
-          sx={styles.dataGrid}
-          disableColumnMenu
+    <EditContext.Provider
+      value={{
+        resourceIdToEdit,
+        setResourceIdToEdit,
+      }}
+    >
+      {resourceToEdit && (
+        <Edit
+          resource={resourceToEdit}
+          onClose={() => setResourceIdToEdit(undefined)}
         />
       )}
-    </Step>
+
+      <Step title="Update a resource" step="Update">
+        <TextField
+          label="Filter by name"
+          sx={styles.textField}
+          variant="standard"
+          value={nameSearch}
+          onChange={e => setNameSearch(e.target.value.trim())}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+        />
+
+        {!isLoading && (
+          <DataGrid
+            sortModel={[{ field: 'Name of Resource', sort: 'asc' }]}
+            columns={COLUMNS}
+            rows={filteredResources}
+            sx={styles.dataGrid}
+            disableColumnMenu
+          />
+        )}
+      </Step>
+    </EditContext.Provider>
   )
 }
