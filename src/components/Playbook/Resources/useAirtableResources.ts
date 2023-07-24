@@ -24,7 +24,7 @@ export default function useAirtableResources(
       resourceTypes,
       // urgency,
     })
-    fetch(`/api/airtable/resources?${searchParams}`)
+    fetch(`/api/airtable/resources/help?${searchParams}`)
       .then(res => res.json())
       .then(setResources)
       .then(() => setIsLoading(false))
