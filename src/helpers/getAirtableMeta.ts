@@ -1,6 +1,13 @@
 import assertEnvVarsSet from '@/helpers/assertEnvVarsSet'
 import { FETCH_NO_CACHE } from '@/constants'
 
+import AirtableResourcesTableNotFoundError from '@/lib/errors/AirtableResourcesTableNotFoundError'
+import BadResponseFromAirtableError from '@/lib/errors/BadResponseFromAirtableError'
+import CountyServedFieldNotFoundError from '@/lib/errors/CountyServedFieldNotFoundError'
+import NoAirtableTablesFoundError from '@/lib/errors/NoAirtableTablesFoundError'
+import ResourceTypeFieldNotFoundError from '@/lib/errors/ResourceTypeFieldNotFoundError'
+import UnauthorizedError from '@/lib/errors/UnauthorizedError'
+
 assertEnvVarsSet()
 
 interface BaseAirtableField {
@@ -32,11 +39,14 @@ export default async function getAirtableMeta() {
     }
   )
 
-  if (!tablesResponse.ok) throw new Error('unknown')
+  if (!tablesResponse.ok && tablesResponse.status === 401)
+    throw new UnauthorizedError()
+  if (!tablesResponse.ok)
+    throw new BadResponseFromAirtableError(tablesResponse.status)
 
   const tables: { tables: AirtableTable[] } = await tablesResponse.json()
 
-  if (!tables || !tables.tables) throw new Error('no_tables_found')
+  if (!tables || !tables.tables) throw new NoAirtableTablesFoundError()
 
   const table = tables.tables.find(
     (table: AirtableTable) =>
@@ -44,17 +54,17 @@ export default async function getAirtableMeta() {
       table.name === process.env.AIRTABLE_TABLE_ID
   )
 
-  if (!table) throw new Error('table_not_found')
+  if (!table) throw new AirtableResourcesTableNotFoundError()
 
   const resourceTypeField = table.fields.find(
     field => field.name === 'Resource Type'
   )
-  if (!resourceTypeField) throw new Error('resource_type_field_not_found')
+  if (!resourceTypeField) throw new ResourceTypeFieldNotFoundError()
 
   const countyServedField = table.fields.find(
     field => field.name === 'County Served'
   )
-  if (!countyServedField) throw new Error('county_served_field_not_found')
+  if (!countyServedField) throw new CountyServedFieldNotFoundError()
 
   return {
     resourceTypeValues: resourceTypeField.options.choices
