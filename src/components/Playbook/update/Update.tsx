@@ -78,13 +78,31 @@ const styles: Record<string, SxProps> = {
   },
 }
 
+const originalSortModel: GridSortModel = [
+  { field: 'Last Modified ', sort: 'desc' },
+]
+
 export default function Update() {
   const [nameSearch, setNameSearch] = useState('')
   const [resourceIdToEdit, setResourceIdToEdit] = useState<string | undefined>()
   const { isLoading, resources } = useAirtableResources()
-  const [sortModel, setSortModel] = useState<GridSortModel>([
-    { field: 'Last Modified ', sort: 'desc' },
-  ])
+  const [sortModel, setSortModel] = useState<GridSortModel>(originalSortModel)
+
+  const handleSortModelChange = (newSortModel: GridSortModel) => {
+    /**
+     * By default, MUI's DataGrid component cycles between three sort orders for
+     * a given column: ascending, descending, and unsorted (`null`). We don't
+     * want the unsorted state, so we'll disable it by forcing the sort order to
+     * cycle between ascending and descending.
+     */
+    if (newSortModel.length === 0) {
+      setSortModel(current => [
+        { ...current[0], sort: current[0].sort === 'asc' ? 'desc' : 'asc' },
+      ])
+    } else {
+      setSortModel(newSortModel)
+    }
+  }
 
   const resourceToEdit: Resource | undefined = resourceIdToEdit
     ? resources.find(resource => resource.id === resourceIdToEdit)
@@ -131,7 +149,7 @@ export default function Update() {
 
         <DataGrid
           sortModel={sortModel}
-          onSortModelChange={value => setSortModel(value)}
+          onSortModelChange={handleSortModelChange}
           columns={COLUMNS}
           rows={filteredResources}
           sx={styles.dataGrid}
