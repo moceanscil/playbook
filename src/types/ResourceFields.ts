@@ -7,6 +7,7 @@ type ResourceFields = {
   'Email Address'?: string
   Address?: string
   Eligibility?: string
+  'Last Modified ': string
 }
 
 export default ResourceFields

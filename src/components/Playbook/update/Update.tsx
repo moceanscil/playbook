@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridSortModel } from '@mui/x-data-grid'
 import { InputAdornment, SxProps, TextField } from '@mui/material'
 import { Search } from '@mui/icons-material'
 import { useState } from 'react'
@@ -10,6 +10,10 @@ import Resource from '@/types/Resource'
 import Step from '../Step'
 import useAirtableResources from './useAirtableResources'
 
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'medium',
+})
+
 const COLUMNS: GridColDef[] = [
   {
     field: 'actions',
@@ -17,6 +21,17 @@ const COLUMNS: GridColDef[] = [
     getActions: params => [
       <EditButton key="edit" resourceId={params.id as string} />,
     ],
+  },
+  {
+    field: 'Last Modified ',
+    minWidth: 150,
+    valueFormatter({ value }) {
+      try {
+        return dateFormatter.format(new Date(value))
+      } catch {
+        return ''
+      }
+    },
   },
   {
     field: 'Name of Resource',
@@ -67,6 +82,9 @@ export default function Update() {
   const [nameSearch, setNameSearch] = useState('')
   const [resourceIdToEdit, setResourceIdToEdit] = useState<string | undefined>()
   const { isLoading, resources } = useAirtableResources()
+  const [sortModel, setSortModel] = useState<GridSortModel>([
+    { field: 'Last Modified ', sort: 'desc' },
+  ])
 
   const resourceToEdit: Resource | undefined = resourceIdToEdit
     ? resources.find(resource => resource.id === resourceIdToEdit)
@@ -112,7 +130,8 @@ export default function Update() {
         />
 
         <DataGrid
-          sortModel={[{ field: 'Name of Resource', sort: 'asc' }]}
+          sortModel={sortModel}
+          onSortModelChange={value => setSortModel(value)}
           columns={COLUMNS}
           rows={filteredResources}
           sx={styles.dataGrid}
