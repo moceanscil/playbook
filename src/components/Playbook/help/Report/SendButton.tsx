@@ -13,7 +13,7 @@ const getEmailBody = (resources: Resource[]): string => {
     .map(resource => `- ${resource['Name of Resource']}`)
     .join('\n')
 
-  return `INR DATE:
+  return `I&R DATE:
 ${formatTodaysDate()}
 
 ARE YOU REFERRING YOUR NEIGHBOR TO MOCEANS?
@@ -31,7 +31,7 @@ export default function SendButton() {
   const { resources } = useContext(ResourcesContext)
   const emailBody = getEmailBody(resources)
   const params = new URLSearchParams({
-    subject: 'MOCEANS NeighborAide INR Report',
+    subject: 'MOCEANS NeighborAide I&R Report',
     body: emailBody,
   })
 

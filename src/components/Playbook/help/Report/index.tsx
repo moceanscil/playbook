@@ -28,7 +28,7 @@ export default function Report() {
   if (currentStep !== 'Report') return null
 
   return (
-    <Step title="Report your INR to MOCEANS" step="Report">
+    <Step title="Report your I&R to MOCEANS" step="Report">
       <Box sx={styles.root}>
         <Box sx={styles.sendButtonWrapper}>
           <SendButton />
