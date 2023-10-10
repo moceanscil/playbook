@@ -27,7 +27,7 @@ export async function GET() {
         'Email Address',
         'Address',
         'Eligibility',
-        'Last Modified ',
+        'Last Modified',
       ],
     })
     .all()

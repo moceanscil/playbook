@@ -23,11 +23,7 @@ const COLUMNS: GridColDef[] = [
     ],
   },
   {
-    /**
-     * This field is saved in AirTable with a space at the end of the name, so
-     * we have to enter it with a space at the end here as well to match.
-     */
-    field: 'Last Modified ',
+    field: 'Last Modified',
     minWidth: 150,
     valueFormatter({ value }) {
       try {
