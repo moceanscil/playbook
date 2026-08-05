@@ -1,6 +1,6 @@
-import { Fab, SxProps, TextField, Box } from '@mui/material'
+import { Fab, SxProps } from '@mui/material'
 import { Send } from '@mui/icons-material'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 
 import Resource from '@/types/Resource'
 import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
@@ -48,9 +48,6 @@ const getEmailBody = (
     })
     .join('\n\n')
 
-const isValidEmail = (email: string): boolean =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-
 export default function SendButton({
   selectedResourceIds,
   onClick,
@@ -59,23 +56,19 @@ export default function SendButton({
   onClick: () => void
 }) {
   const { resources } = useContext(ResourcesContext)
-  const [email, setEmail] = useState('')
 
   if (!resources.length) return null
 
   const emailBody = getEmailBody(selectedResourceIds, resources)
-  const emailIsValid = isValidEmail(email)
 
   const handleSend = async () => {
-    if (!emailIsValid) return
-
     await fetch('/api/send-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        to: email,
+        to: 'robert.renzulli@moceanscil.org',
         subject: 'Some helpful resources for you',
         body: emailBody,
       }),
@@ -86,32 +79,8 @@ export default function SendButton({
 
   return (
     <>
-      <Box
-        sx={{
-          position: 'fixed',
-          zIndex: 1,
-          bottom: 80,
-          right: 16,
-          width: 300,
-        }}
-      >
-        <TextField
-          fullWidth
-          label="Enter the recipient email address"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          error={email.length > 0 && !emailIsValid}
-          helperText={
-            email.length > 0 && !emailIsValid
-              ? 'Enter a valid email address'
-              : ''
-          }
-          type="email"
-        />
-      </Box>
-
       <Fab
-        disabled={!selectedResourceIds.length || !emailIsValid}
+        disabled={!selectedResourceIds.length}
         variant="extended"
         sx={styles.button}
         color="primary"
