@@ -4,7 +4,6 @@ import { useContext } from 'react'
 
 import Resource from '@/types/Resource'
 import ResourcesContext from '@/components/Playbook/help/ResourcesContext'
-import toStringWithMailFriendlySpaces from '@/helpers/toStringWithMailFriendlySpaces'
 
 const styles: Record<string, SxProps> = {
   button: {
@@ -29,6 +28,7 @@ const getResourceTextSummary = (resource: Resource): string => {
     resource['Name of Resource'].toLocaleUpperCase() +
     '\n' +
     resource['Program Summary']
+
   if (resource['Website Link']) summary += '\n' + resource['Website Link']
   if (resource.Phone) summary += '\n' + resource.Phone
   if (resource.Address) summary += '\n' + resource.Address
@@ -37,7 +37,10 @@ const getResourceTextSummary = (resource: Resource): string => {
   return summary
 }
 
-const getEmailBody = (resourceIds: string[], resources: Resource[]): string =>
+const getEmailBody = (
+  resourceIds: string[],
+  resources: Resource[]
+): string =>
   resourceIds
     .map(resourceId => {
       const resource = resources.find(({ id }) => resourceId === id) as Resource
@@ -53,24 +56,35 @@ export default function SendButton({
   onClick: () => void
 }) {
   const { resources } = useContext(ResourcesContext)
+
   if (!resources.length) return null
 
   const emailBody = getEmailBody(selectedResourceIds, resources)
-  const params = new URLSearchParams({
-    subject: 'Some helpful resources for you',
-    body: emailBody,
-  })
+
+  const handleSend = async () => {
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: 'robert.renzulli@moceanscil.org',
+        subject: 'Some helpful resources for you',
+        body: emailBody,
+      }),
+    })
+
+    onClick()
+  }
 
   return (
     <>
       <Fab
         disabled={!selectedResourceIds.length}
-        href={`mailto:?${toStringWithMailFriendlySpaces(params)}`}
-        target="_blank"
         variant="extended"
         sx={styles.button}
         color="primary"
-        onClick={onClick}
+        onClick={handleSend}
       >
         <Send sx={styles.icon} />
         Send
